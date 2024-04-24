@@ -25,11 +25,7 @@ export const AircraftCrewPage = () => {
     <PageContainer
       actualRoute="aircraft"
       header={{
-        title: "Tripulação",
-        subtitle: `Visualize ou edite a tripulação vinculada a aeronave ${mask(
-          "registration",
-          data?.registration || ""
-        )}`,
+        title: `Tripulação | ${mask("registration", data?.registration || "")}`,
       }}
     >
       <S.Container>

@@ -16,8 +16,6 @@ export const AircraftPage = () => {
       actualRoute="aircraft"
       header={{
         title: "Aeronaves",
-        subtitle:
-          "Aeronaves vinculadas ao seu perfil com suas respectivas informações",
       }}
     >
       <S.Container>
