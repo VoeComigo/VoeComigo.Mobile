@@ -3,6 +3,7 @@ import { PageContainer } from "../../../../components/PageContainer/PageContaine
 import { AircraftCarousel } from "../../../../components/AircraftCarousel/AircraftCarousel";
 import { useGetAircraft } from "../../hooks";
 import { useEffect } from "react";
+import { EmptyCard } from "../../../../components/EmptyCard/EmptyCard";
 
 export const AircraftPage = () => {
   const { getAircraft, data, loading, error } = useGetAircraft();
@@ -19,7 +20,15 @@ export const AircraftPage = () => {
       }}
     >
       <S.Container>
-        {data && <AircraftCarousel aircraftData={data} />}
+        {data ? (
+          <AircraftCarousel aircraftData={data} />
+        ) : (
+          <EmptyCard
+            title={
+              "Nenhuma aeronave cadastrada. Utilize o '+' abaixo para verificar as opções disponíveis"
+            }
+          />
+        )}
       </S.Container>
     </PageContainer>
   );

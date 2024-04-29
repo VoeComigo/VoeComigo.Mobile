@@ -486,6 +486,7 @@ export interface IDialogOption {
   icon: JSX.Element;
   value: string;
   isValid: boolean;
+  required: boolean;
   //  Mask controller:
   inputMask?: string | MaskProps[];
   // For select type:

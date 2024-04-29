@@ -84,10 +84,11 @@ export function parseCallbackData(data: IDialog): object {
   }
 
   optionsArray.forEach((el) => {
-    parsed = {
-      ...parsed,
-      [el.name]: validateParsedValue(el.type, el.value, el.removeMaskOnParse),
-    };
+    if (el.required)
+      parsed = {
+        ...parsed,
+        [el.name]: validateParsedValue(el.type, el.value, el.removeMaskOnParse),
+      };
   });
 
   return parsed;

@@ -6,6 +6,7 @@ import { SimpleCrewCaroulsel } from "../../../../components/CrewCards/SimpleCrew
 import { useEffect, useState } from "react";
 import { useGetCrew } from "../../hooks/useGetCrew";
 import { mask } from "../../../../utils/mask";
+import { EmptyCard } from "../../../../components/EmptyCard/EmptyCard";
 
 export const AircraftCrewPage = () => {
   let { id } = useParams<string>();
@@ -29,7 +30,7 @@ export const AircraftCrewPage = () => {
       }}
     >
       <S.Container>
-        {data && (
+        {data ? (
           <>
             <DetailedCrewCard
               aircraftID={id || ""}
@@ -42,6 +43,12 @@ export const AircraftCrewPage = () => {
               onChange={setIndex}
             />
           </>
+        ) : (
+          <EmptyCard
+            title={
+              "Nenhum tripulante localizado. Utilize o '+' abaixo para verificar as opções disponíveis"
+            }
+          />
         )}
       </S.Container>
     </PageContainer>
