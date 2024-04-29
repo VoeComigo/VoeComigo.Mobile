@@ -21,6 +21,9 @@ import { MaskProps, MaskedTextField } from "../MaskedTextField/MaskedTextField";
 
 export const DialogGenerator = ({
   template,
+  requestStatus,
+  disableFetch,
+  requestStatusCallback,
   responseCallback,
 }: DialogGeneratorProps) => {
   const navigate = useNavigate();
@@ -46,11 +49,6 @@ export const DialogGenerator = ({
   //  Handle update:
   function updateHandler() {
     responseCallback(parseCallbackData(dialog));
-    return createNotification({
-      type: "success",
-      title: "Aeronave cadastrada",
-      text: "Aeronave cadastrada com sucesso!",
-    });
   }
 
   //  Dynamic data fetching area:
@@ -257,6 +255,10 @@ export const DialogGenerator = ({
     return dialog.steps.every((el) => el.isValid);
   }, [dialog]);
 
+  useEffect(() => {
+    if (isFormValid) return updateHandler();
+  }, [isFormValid]);
+
   return (
     <S.Container>
       <Modal {...controller} contentStyle="normal">
@@ -428,21 +430,33 @@ export const DialogGenerator = ({
           <div className={loading ? "loader" : "loader hide"} />
         </form>
       </S.BlueArea>
-      <S.SuccessArea className={isFormValid ? "show" : "hide"}>
+
+      <S.SuccessArea className={isFormValid && requestStatus ? "show" : "hide"}>
         <div>
-          <TaskAltIcon />
-          <h1>{dialog.successPhrase.toUpperCase()}</h1>
+          {requestStatus === "success" ? <TaskAltIcon /> : <ReportOffIcon />}
+          <h1>
+            {requestStatus === "success"
+              ? dialog.successPhrase.toUpperCase()
+              : dialog.errorPhrase.toUpperCase()}
+          </h1>
         </div>
         <Button
           className={"white-button"}
           type="submit"
+          disabled={disableFetch}
           variant="contained"
-          onClick={() => updateHandler()}
+          onClick={() => {
+            requestStatus === "success"
+              ? navigate(dialog.callbackUrl)
+              : requestStatusCallback(undefined);
+          }}
           disableElevation
         >
-          {`Retornar`}
+          {requestStatus === "success" ? dialog.succesLabel : dialog.errorLabel}
         </Button>
       </S.SuccessArea>
+
+      {/* Data fetching error handling: */}
       <S.SuccessArea className={error ? "show" : "hide"}>
         <div>
           <ReportOffIcon />
@@ -464,12 +478,18 @@ export const DialogGenerator = ({
 
 type DialogGeneratorProps = {
   template: IDialog;
-  responseCallback<T>(e: T): void;
+  disableFetch: boolean;
+  requestStatus: "success" | "error" | undefined;
+  requestStatusCallback: (e: "success" | "error" | undefined) => void;
+  responseCallback: (e: object) => void;
 };
 
 export interface IDialog {
   callbackUrl: string;
   successPhrase: string;
+  succesLabel: string;
+  errorPhrase: string;
+  errorLabel: string;
   steps: {
     title: string;
     isValid: boolean;

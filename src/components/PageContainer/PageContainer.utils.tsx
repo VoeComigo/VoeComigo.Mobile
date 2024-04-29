@@ -5,9 +5,9 @@ import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOu
 export const modalButtonContent = {
   bind: {
     color: { initial: "#9B83F5", end: "#4B1FED" },
-    title: "Vincular",
+    title: "Convites",
     subtitle:
-      "Vincule-se a uma aeronave existente e faça parte de sua tripulação",
+      "Visualizar, recusar ou aceitar convites para se juntar a uma tripulação",
     icon: <Diversity1OutlinedIcon />,
   },
   create: {

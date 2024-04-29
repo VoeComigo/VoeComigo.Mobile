@@ -49,6 +49,7 @@ export const useSwipeContent = <T>({
 
   //  Store the first touch:
   function onTouchStart(e: React.TouchEvent<T>) {
+    e.stopPropagation();
     setSwipeBegin(e.targetTouches[0].clientX);
   }
   //  Store each new touch:

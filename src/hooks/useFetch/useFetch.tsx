@@ -13,9 +13,9 @@ interface IDataInput<U> {
   input?: U;
 }
 
-interface IDataResponse<T> {
+interface IDataResponse<T, U> {
   fetchData: () => Promise<void>;
-  lazyFetchData: (e: KeyObject[]) => Promise<void>;
+  lazyFetchData: (e?: KeyObject[], body?: U) => Promise<void>;
   data: T | null;
   loading: boolean;
   error: boolean;
@@ -26,7 +26,7 @@ export const useFetch = <T, U>({
   method,
   input,
   variables,
-}: IDataInput<U>): IDataResponse<T> => {
+}: IDataInput<U>): IDataResponse<T, U> => {
   //  Control states:
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -77,6 +77,9 @@ export const useFetch = <T, U>({
     return await fetch(`${API_BASE_URL}${parsedUrl ? parsedUrl : url}`, {
       method: method,
       body: input ? JSON.stringify(input) : undefined,
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then((el) => {
         if (validateHttpStatus(el.status)) {
@@ -103,15 +106,16 @@ export const useFetch = <T, U>({
   }
 
   //  Lazy fetch data for values that needs to be inputed on the runtime:
-  function lazyFetchData(values: KeyObject[]): Promise<void> {
-    return fetchData(getParsedUrl(values));
+  function lazyFetchData(values?: KeyObject[], body?: U): Promise<void> {
+    input = body;
+    return fetchData(values ? getParsedUrl(values) : url);
   }
 
   return { fetchData, lazyFetchData, data, loading, error };
 };
 
 //  Usage example, without variables:
-type Options = {
+/* type Options = {
   id: string;
   description: string;
 };
@@ -145,3 +149,4 @@ export function useGetTesteVariables() {
 
   return { getTesteVariables, data, loading, error };
 }
+ */

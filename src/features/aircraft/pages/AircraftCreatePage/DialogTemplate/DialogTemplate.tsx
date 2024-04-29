@@ -20,11 +20,11 @@ import { inputMask } from "../../../../../utils/inputMask";
 // Flight type options:
 const flightTypeOptions = [
   {
-    value: "VRFD",
+    value: "VFRD",
     title: "VRF - Diurno",
   },
   {
-    value: "VRFN",
+    value: "VFRN",
     title: "VRF - Noturno",
   },
   {
@@ -65,6 +65,9 @@ const registryCategoryOptions = [
 export const aircraftTemplate: IDialog = {
   callbackUrl: "/aircraft",
   successPhrase: "Aeronave criada com sucesso!!",
+  succesLabel: "Visualizar aeronaves",
+  errorPhrase: "Ocorreu um erro ao cadastrar a aeronave!!",
+  errorLabel: "Corrigir e tentar novamente",
   steps: [
     {
       title: "Dados da aeronave",
@@ -125,7 +128,7 @@ export const aircraftTemplate: IDialog = {
           required: true,
         },
         {
-          name: "serialNumber",
+          name: "serieNumber",
           title: "Nº de série",
           type: "text",
           icon: <FormatListNumberedIcon />,
