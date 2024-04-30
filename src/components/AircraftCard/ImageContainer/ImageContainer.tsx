@@ -18,6 +18,8 @@ export const ImageContainer = ({
   status,
   isFavorite,
   image,
+  role,
+  isAircraftCard = true,
 }: Props) => {
   //  Navigator:
   const navigate = useNavigate();
@@ -54,28 +56,45 @@ export const ImageContainer = ({
         src={!!image ? image : noPhoto}
         alt={noPhoto}
         loading="lazy"
-        onClick={onTap}
+        onClick={() => (isAircraftCard ? onTap() : null)}
         //onDoubleClick={() => setFavoritePlane(!favoritePlane)}
       />
-      <S.CardArea>
-        <span className="info-chip blue">{`${mask(
-          "registration",
-          registration
-        )} | ${model.description}`}</span>
-        <span
-          className={`info-chip ${status === "ACTIVE" ? "green" : "red"}`}
-        >{`${status === "ACTIVE" ? "DOC. ATIVA" : "DOC. INATIVA"}`}</span>
-      </S.CardArea>
-      <S.FavoriteArea>
-        <button className="favorite-button" onClick={() => handleFavorite()}>
-          <FavoriteBorderOutlinedIcon
-            className={`icon outline ${!favoritePlane ? "show" : "hide"}`}
-          />
-          <FavoriteOutlinedIcon
-            className={`icon filled ${favoritePlane ? "show-bounce" : "hide"}`}
-          />
-        </button>
-      </S.FavoriteArea>
+      {!isAircraftCard && (
+        <S.CardArea>
+          <span className="info-chip blue">{`${mask(
+            "registration",
+            registration
+          )} | ${model.description} | ${role}`}</span>
+        </S.CardArea>
+      )}
+      {isAircraftCard && (
+        <>
+          <S.CardArea>
+            <span className="info-chip blue">{`${mask(
+              "registration",
+              registration
+            )} | ${model.description}`}</span>
+            <span
+              className={`info-chip ${status === "ACTIVE" ? "green" : "red"}`}
+            >{`${status === "ACTIVE" ? "DOC. ATIVA" : "DOC. INATIVA"}`}</span>
+          </S.CardArea>
+          <S.FavoriteArea>
+            <button
+              className="favorite-button"
+              onClick={() => handleFavorite()}
+            >
+              <FavoriteBorderOutlinedIcon
+                className={`icon outline ${!favoritePlane ? "show" : "hide"}`}
+              />
+              <FavoriteOutlinedIcon
+                className={`icon filled ${
+                  favoritePlane ? "show-bounce" : "hide"
+                }`}
+              />
+            </button>
+          </S.FavoriteArea>
+        </>
+      )}
     </S.Container>
   );
 };
@@ -87,4 +106,6 @@ type Props = {
   status: "ACTIVE" | "INACTIVE";
   isFavorite: boolean;
   image: string | null;
+  isAircraftCard?: boolean;
+  role: string;
 };

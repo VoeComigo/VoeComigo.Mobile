@@ -24,7 +24,7 @@ export const AircraftCrewPage = () => {
 
   return (
     <PageContainer
-      actualRoute="aircraft"
+      actualRoute="aircraft-crew"
       header={{
         title: `Tripulação | ${mask("registration", data?.registration || "")}`,
       }}

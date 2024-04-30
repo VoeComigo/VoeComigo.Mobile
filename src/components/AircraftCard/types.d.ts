@@ -4,6 +4,7 @@ export interface IAircraft {
   model: IAircraftModel; // C175
   status: "ACTIVE" | "INACTIVE";
   isFavorite: boolean;
+  role: string;
   image: string | null;
   owner: IPerson;
   operator: IPerson;

@@ -3,13 +3,12 @@ import { IAircraft } from "../AircraftCard/types";
 import { AircraftCards } from "../AircraftCard/AircraftCard";
 import { useEffect } from "react";
 import { useSlider, useSwipeContent } from "../../hooks";
+import { AircraftInviteCard } from "../AircraftInviteCard/AircraftInviteCard";
 
-export const AircraftCarousel = ({ aircraftData }: Props) => {
-  //  Favorite airplane appear first:
-  aircraftData = aircraftData.sort(
-    (a, b) => Number(b.isFavorite) - Number(a.isFavorite)
-  );
-
+export const AircraftCarousel = ({
+  aircraftData,
+  cardTypes = "AIRCRAFT",
+}: Props) => {
   const { onTouchStart, onTouchMove, onTouchEnd, swipeDir, swipableRef } =
     useSwipeContent<HTMLDivElement>({
       swipeMode: "medium",
@@ -36,13 +35,18 @@ export const AircraftCarousel = ({ aircraftData }: Props) => {
       $offsetX={offsetX}
       $width={elementFullWidth}
     >
-      {aircraftData.map((el) => (
-        <AircraftCards key={el.id} aircraftData={el} />
-      ))}
+      {aircraftData.map((el) => {
+        return cardTypes === "AIRCRAFT" ? (
+          <AircraftCards key={el.id} aircraftData={el} />
+        ) : (
+          <AircraftInviteCard key={el.id} aircraftData={el} />
+        );
+      })}
     </S.Content>
   );
 };
 
 type Props = {
   aircraftData: IAircraft[];
+  cardTypes?: "AIRCRAFT" | "INVITATION";
 };

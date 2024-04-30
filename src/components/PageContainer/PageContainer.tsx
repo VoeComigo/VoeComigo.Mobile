@@ -5,6 +5,8 @@ import { Modal, useModalController } from "../../hooks";
 import { InformationButton } from "..";
 import { useNavigate } from "react-router-dom";
 import { modalButtonContent } from "./PageContainer.utils";
+import { InvitationModal } from "../InvitationModal/InvitationModal";
+import { useCallback } from "react";
 
 export const PageContainer = ({
   header,
@@ -16,7 +18,7 @@ export const PageContainer = ({
   const { toggleModal, controller } = useModalController();
 
   function getMainMenuProps() {
-    if (actualRoute === "aircraft") {
+    if (actualRoute === "aircraft" || actualRoute === "aircraft-crew") {
       return {
         mainButtonProps: {
           icon: <AddOutlinedIcon />,
@@ -27,15 +29,14 @@ export const PageContainer = ({
     return undefined;
   }
 
-  return (
-    <>
-      <S.Container>
-        <div className="header-section">
-          <h1>{header.title}</h1>
-          {header.subtitle && <h2>{header.subtitle}</h2>}
-        </div>
-        {children}
-        <Modal {...controller} className={"content-area"} contentStyle="ticket">
+  function getModalProps(): {
+    modalStyle: "ticket" | "normal" | undefined;
+    element: JSX.Element;
+  } {
+    if (actualRoute === "aircraft")
+      return {
+        modalStyle: "ticket",
+        element: (
           <div className="modal-content">
             <InformationButton
               {...modalButtonContent.bind}
@@ -46,6 +47,30 @@ export const PageContainer = ({
               onClick={() => navigate("/aircraft-create")}
             />
           </div>
+        ),
+      };
+    if (actualRoute === "aircraft-crew")
+      return {
+        modalStyle: "normal",
+        element: <InvitationModal />,
+      };
+    return { modalStyle: undefined, element: <></> };
+  }
+
+  return (
+    <>
+      <S.Container>
+        <div className="header-section">
+          <h1>{header.title}</h1>
+          {header.subtitle && <h2>{header.subtitle}</h2>}
+        </div>
+        {children}
+        <Modal
+          {...controller}
+          className={"content-area"}
+          contentStyle={getModalProps().modalStyle}
+        >
+          {getModalProps().element}
         </Modal>
       </S.Container>
       {hasMainMenu && (

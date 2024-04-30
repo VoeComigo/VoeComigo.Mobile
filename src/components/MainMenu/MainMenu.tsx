@@ -6,7 +6,12 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import { useNavigate } from "react-router-dom";
 
-export type RouteMapper = "dashboard" | "aircraft" | "weather" | "plan";
+export type RouteMapper =
+  | "dashboard"
+  | "aircraft"
+  | "aircraft-crew"
+  | "weather"
+  | "plan";
 
 export const MainMenu = ({ actualRoute, mainButtonProps }: Props) => {
   const navigate = useNavigate();
@@ -39,7 +44,7 @@ export const MainMenu = ({ actualRoute, mainButtonProps }: Props) => {
             <AirplanemodeActiveOutlinedIcon className="icons" />
             <span
               className={`navigator-dot ${
-                actualRoute === "aircraft" && "show"
+                actualRoute.includes("aircraft") && "show"
               }`}
             />
           </button>
