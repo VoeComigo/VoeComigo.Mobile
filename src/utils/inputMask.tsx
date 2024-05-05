@@ -5,7 +5,8 @@ type MaskType =
   | "phone"
   | "cellphone"
   | "phoneCellphone"
-  | "registration";
+  | "registration"
+  | "anacCode";
 
 export const inputMask = (type: MaskType): string | MaskArray[] => {
   if (type === "registration") return "aa-aaa";
@@ -17,6 +18,7 @@ export const inputMask = (type: MaskType): string | MaskArray[] => {
   if (type === "cellphone") return "(00) 00000-0000";
   if (type === "phoneCellphone")
     return [{ mask: "(00) 0000-0000" }, { mask: "(00) 00000-0000" }];
+  if (type === "anacCode") return "000000";
   return "";
 };
 

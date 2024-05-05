@@ -21,6 +21,7 @@ const TextMaskCustom = forwardRef<
       {...other}
       inputRef={ref}
       mask={props.mask}
+      unmask={true}
       onAccept={(value: any) => onChange({ target: { value } })}
       lazy={false}
       placeholderChar="_"

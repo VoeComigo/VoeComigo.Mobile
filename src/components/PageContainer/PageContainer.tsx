@@ -37,7 +37,7 @@ export const PageContainer = ({
       return {
         modalStyle: "ticket",
         element: (
-          <div className="modal-content">
+          <div className="modal-content-aircraft">
             <InformationButton
               {...modalButtonContent.bind}
               onClick={() => navigate("/aircraft-bind")}
@@ -65,11 +65,7 @@ export const PageContainer = ({
           {header.subtitle && <h2>{header.subtitle}</h2>}
         </div>
         {children}
-        <Modal
-          {...controller}
-          className={"content-area"}
-          contentStyle={getModalProps().modalStyle}
-        >
+        <Modal {...controller} contentStyle={getModalProps().modalStyle}>
           {getModalProps().element}
         </Modal>
       </S.Container>

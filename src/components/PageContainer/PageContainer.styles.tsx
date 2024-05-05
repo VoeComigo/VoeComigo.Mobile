@@ -12,10 +12,6 @@ export const Container = styled.div`
   overflow: hidden;
   overflow-y: auto;
 
-  .content-area {
-    height: 100%;
-  }
-
   h1 {
     font-size: ${theme.fontSize24};
     font-weight: ${theme.fontWeight600};
@@ -34,12 +30,13 @@ export const Container = styled.div`
     border-bottom: 1px solid ${theme.grey};
   }
 
-  .modal-content {
+  .modal-content-aircraft {
     margin-top: 2rem;
     justify-content: space-between;
     height: 100%;
     display: flex;
     flex-direction: column;
+    gap: 5rem;
     margin-bottom: 3.5rem;
   }
 `;
