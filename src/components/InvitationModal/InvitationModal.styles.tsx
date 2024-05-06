@@ -39,6 +39,8 @@ export const Wrapper = styled.div`
 
       transition: 200ms all;
 
+      filter: brightness(0.9);
+
       &:active {
         filter: brightness(0.95);
       }
@@ -50,7 +52,7 @@ export const Wrapper = styled.div`
 
   .selected {
     transform: scale(1.1);
-    //filter: brightness(0.95);
+    filter: brightness(1) !important;
   }
 
   .input-area {
