@@ -66,6 +66,8 @@ export const InvitationModal = () => {
         searchTerm: input,
         role: role,
       });
+      setInput("");
+      setRole("");
       createNotification({
         type: "success",
         title: "Convite enviado",

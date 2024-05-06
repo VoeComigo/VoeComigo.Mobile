@@ -1,4 +1,4 @@
-import { IAircraftCrew } from "./AircraftCrewPage.utils";
+/* import { IAircraftCrew } from "./AircraftCrewPage.utils";
 
 export const crewMock: IAircraftCrew = {
   id: "1",
@@ -43,3 +43,4 @@ export const crewMock: IAircraftCrew = {
     },
   ],
 };
+ */

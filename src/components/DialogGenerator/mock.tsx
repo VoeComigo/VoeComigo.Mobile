@@ -1,4 +1,4 @@
-import { IDialog } from "./DialogGenerator";
+/* import { IDialog } from "./DialogGenerator";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import WarehouseIcon from "@mui/icons-material/Warehouse";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
@@ -30,6 +30,7 @@ export const mockedDialog: IDialog = {
           icon: <ListAltIcon />,
           value: "",
           isValid: false,
+          required: false,
         },
         {
           name: "manufacturer",
@@ -38,6 +39,7 @@ export const mockedDialog: IDialog = {
           icon: <WarehouseIcon />,
           value: "",
           isValid: false,
+          required: false,
           //  Api fetching:
           hasDynamicData: true,
           dynamicData: {
@@ -52,6 +54,7 @@ export const mockedDialog: IDialog = {
           icon: <QrCode2Icon />,
           value: "",
           isValid: false,
+          required: false,
           //  Api fetching:
           hasDynamicData: true,
           dynamicData: {
@@ -67,6 +70,7 @@ export const mockedDialog: IDialog = {
           icon: <ConstructionIcon />,
           value: "",
           isValid: false,
+          required: false,
         },
         {
           name: "serialNumber",
@@ -75,6 +79,7 @@ export const mockedDialog: IDialog = {
           icon: <FormatListNumberedIcon />,
           value: "",
           isValid: false,
+          required: false,
         },
       ],
     },
@@ -89,6 +94,7 @@ export const mockedDialog: IDialog = {
           icon: <PeopleAltIcon />,
           value: "",
           isValid: false,
+          required: false,
         },
         {
           name: "tripulationNumber",
@@ -97,6 +103,7 @@ export const mockedDialog: IDialog = {
           icon: <GroupsIcon />,
           value: "",
           isValid: false,
+          required: false,
         },
         {
           name: "seatsAmount",
@@ -105,6 +112,7 @@ export const mockedDialog: IDialog = {
           icon: <AirlineSeatReclineExtraIcon />,
           value: "",
           isValid: false,
+          required: false,
         },
       ],
     },
@@ -119,6 +127,7 @@ export const mockedDialog: IDialog = {
           icon: <ConnectingAirportsIcon />,
           value: "",
           isValid: false,
+          required: false,
         },
         {
           name: "registryCategory",
@@ -127,6 +136,7 @@ export const mockedDialog: IDialog = {
           icon: <CategoryIcon />,
           value: "",
           isValid: false,
+          required: false,
         },
         {
           name: "expirationCVA",
@@ -135,6 +145,7 @@ export const mockedDialog: IDialog = {
           icon: <EventRepeatIcon />,
           value: "",
           isValid: false,
+          required: false,
         },
       ],
     },
@@ -149,6 +160,7 @@ export const mockedDialog: IDialog = {
           icon: <EmojiPeopleIcon />,
           value: "",
           isValid: false,
+          required: false,
         },
         {
           name: "owner",
@@ -157,8 +169,10 @@ export const mockedDialog: IDialog = {
           icon: <HailIcon />,
           value: "",
           isValid: false,
+          required: false,
         },
       ],
     },
   ],
 };
+ */

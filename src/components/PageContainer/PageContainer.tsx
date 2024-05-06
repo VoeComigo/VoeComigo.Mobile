@@ -6,7 +6,6 @@ import { InformationButton } from "..";
 import { useNavigate } from "react-router-dom";
 import { modalButtonContent } from "./PageContainer.utils";
 import { InvitationModal } from "../InvitationModal/InvitationModal";
-import { useCallback } from "react";
 
 export const PageContainer = ({
   header,

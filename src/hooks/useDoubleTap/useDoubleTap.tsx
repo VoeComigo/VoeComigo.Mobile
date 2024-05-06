@@ -1,6 +1,6 @@
 export const useDoubleTap = ({ onDoubleTap }: Props) => {
   const tapDelay: number = 500; //  Delay between each tap
-  let clickTimer: number | null = null;
+  let clickTimer: NodeJS.Timeout | null = null;
 
   function onTap() {
     //  First tap:
