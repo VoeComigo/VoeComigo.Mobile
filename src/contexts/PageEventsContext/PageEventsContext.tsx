@@ -35,7 +35,7 @@ export const PageEventsContextProvider = ({
 }: {
   children: JSX.Element;
 }) => {
-  const [pageEvent, setPageEvent] = useState<PageEventsStatus>("done");
+  const [pageEvent, setPageEvent] = useState<PageEventsStatus>("loading");
 
   //  Change event for the page status:
   function onChangeEvent(e: PageEventsStatus) {

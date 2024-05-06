@@ -39,6 +39,10 @@ export const LoaderWrapper = styled.div`
 
   .spinner-text {
     width: 100%;
+    position: absolute;
+
+    transform: translateY(-50%);
+    top: 50%;
 
     display: flex;
     gap: 1rem;
