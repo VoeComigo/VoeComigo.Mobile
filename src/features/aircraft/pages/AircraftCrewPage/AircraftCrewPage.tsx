@@ -1,23 +1,32 @@
 import * as S from "./AircraftCrewPage.styles";
 import { PageContainer } from "../../../../components/PageContainer/PageContainer";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { DetailedCrewCard } from "../../../../components/CrewCards/DetailedCrewCard/DetailedCrewCard";
 import { SimpleCrewCaroulsel } from "../../../../components/CrewCards/SimpleCrewCaroulsel/SimpleCrewCaroulsel";
 import { useEffect, useState } from "react";
 import { useGetCrew } from "../../hooks/useGetCrew";
 import { mask } from "../../../../utils/mask";
 import { EmptyCard } from "../../../../components/EmptyCard/EmptyCard";
+import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/PageEventsContext";
 
 export const AircraftCrewPage = () => {
   let { id } = useParams<string>();
 
-  const navigate = useNavigate();
+  //  Loading and error handling:
+  const { onChangeEvent } = usePageEventsHandling();
 
+  //  Fetching data:
   const { getCrew, data, loading, error } = useGetCrew(id || "");
 
   useEffect(() => {
     getCrew();
+    onChangeEvent(`loading`);
   }, []);
+
+  useEffect(() => {
+    if (!loading && data) return onChangeEvent("done");
+    if (!loading && error) return onChangeEvent("error");
+  }, [loading]);
 
   //  Callback for the cards:
   const [index, setIndex] = useState<number>(0);

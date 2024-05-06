@@ -4,13 +4,24 @@ import { AircraftCarousel } from "../../../../components/AircraftCarousel/Aircra
 import { useGetAircraft } from "../../hooks";
 import { useEffect } from "react";
 import { EmptyCard } from "../../../../components/EmptyCard/EmptyCard";
+import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/PageEventsContext";
 
 export const AircraftPage = () => {
+  //  Loading and error handling:
+  const { onChangeEvent } = usePageEventsHandling();
+
+  //  Data fetching:
   const { getAircraft, data, loading, error } = useGetAircraft();
 
   useEffect(() => {
     getAircraft();
+    onChangeEvent("loading");
   }, []);
+
+  useEffect(() => {
+    if (!loading && data) return onChangeEvent("done");
+    if (!loading && error) return onChangeEvent("error");
+  }, [loading]);
 
   return (
     <PageContainer

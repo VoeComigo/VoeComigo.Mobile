@@ -11,6 +11,10 @@ export const EnchancedCard = styled(Card)`
     box-shadow: none;
     border: 2px dashed ${theme.grey};
   }
+
+  .primary {
+    background-color: ${theme.primary};
+  }
 `;
 
 export const NoContentContainer = styled.div`
