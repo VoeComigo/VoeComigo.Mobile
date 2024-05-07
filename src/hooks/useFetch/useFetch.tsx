@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ITokenResponse } from "../../features/newUser/hooks/useSignIn";
 
 const API_BASE_URL: string = import.meta.env.VITE_API_BASE_URL;
 
@@ -27,10 +29,18 @@ export const useFetch = <T, U>({
   input,
   variables,
 }: IDataInput<U>): IDataResponse<T, U> => {
+  //  Redirection:
+  const navigate = useNavigate();
+
   //  Control states:
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+
+  //  Get authtoken:
+  const authToken: ITokenResponse = JSON.parse(
+    sessionStorage.getItem("logged-user") || `{"token":null}`
+  );
 
   //    If any variable was found, parse the url and change the vars:
   if (variables) {
@@ -63,9 +73,14 @@ export const useFetch = <T, U>({
   }
 
   //    Validate http status returned by the fetch request and tells if the request is valid or not:
-  function validateHttpStatus(status: number): boolean {
+  function validateHttpStatus(status: number): boolean | void {
     if (status >= 100 && status < 400) return true;
     return false;
+  }
+
+  //  Check for token validation
+  function isValidToken(status: number) {
+    if (status === 401) return navigate("/signin");
   }
 
   //    Fetching function:
@@ -78,11 +93,13 @@ export const useFetch = <T, U>({
       method: method,
       body: input ? JSON.stringify(input) : undefined,
       headers: {
+        Authorization: `Bearer ${authToken.token}`,
         "Content-Type": "application/json",
       },
     })
       .then((el) => {
         if (validateHttpStatus(el.status)) {
+          isValidToken(el.status);
           el.json()
             .then((item) => {
               setData(item);
@@ -93,7 +110,7 @@ export const useFetch = <T, U>({
               setData(null);
               setLoading(false);
               setError(false);
-              throw new Error(el.statusText);
+              //throw new Error(el.statusText);
             });
         } else throw new Error(el.statusText);
       })

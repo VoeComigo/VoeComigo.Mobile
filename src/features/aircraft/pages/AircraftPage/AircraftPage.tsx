@@ -15,12 +15,12 @@ export const AircraftPage = () => {
 
   useEffect(() => {
     getAircraft();
-    onChangeEvent("loading");
   }, []);
 
   useEffect(() => {
-    if (!loading && data) return onChangeEvent("done");
+    if (loading) return onChangeEvent("loading");
     if (!loading && error) return onChangeEvent("error");
+    if (!loading) return onChangeEvent("done");
   }, [loading]);
 
   return (

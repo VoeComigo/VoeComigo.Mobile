@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export const RouteProtection = ({ isProtected = false, children }: Props) => {
-  const validAuth: boolean = !!sessionStorage.getItem("logged-user");
+  const validAuth: boolean = Boolean(sessionStorage.getItem("logged-user"));
 
   return validAuth || !isProtected ? children : <Navigate to={"/signin"} />;
 };

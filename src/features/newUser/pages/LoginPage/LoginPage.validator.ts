@@ -1,16 +1,16 @@
-import * as yup from 'yup';
+import * as yup from "yup";
 
-export interface ILoginForm{
-  username: string,
-  password: string
+export interface ILoginForm {
+  userName: string;
+  password: string;
 }
 
 export const DEFAULT_VALUES: ILoginForm = {
-  username: '',
-  password: ''
-}
+  userName: "",
+  password: "",
+};
 
 export const LOGIN_SCHEMA = yup.object({
-  username: yup.string().required('Campo não pode estar vazio'),
-  password: yup.string().required('Campo não pode estar vazio')
+  userName: yup.string().required("Campo não pode estar vazio"),
+  password: yup.string().required("Campo não pode estar vazio"),
 });

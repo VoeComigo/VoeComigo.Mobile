@@ -8,16 +8,17 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { WhatsappIcon } from "../../Icons";
 import { IAircraftPerson } from "../../../features/aircraft/hooks/useGetCrew";
 import { useDeleteCrewMember } from "../../../features/aircraft/hooks/useDeleteCrewMember";
-import { useNavigate } from "react-router-dom";
 import { useNotificationContext } from "../../../contexts";
 import { NOTIFICATION_TYPES } from "./DetailedCrewCard.utils";
 import { useState } from "react";
 import { Modal, RemoveModal, useModalController } from "../../../hooks";
 
-export const DetailedCrewCard = ({ aircraftID, crewMember, isOwner }: Prop) => {
-  // Refresh handler:
-  const navigate = useNavigate();
-
+export const DetailedCrewCard = ({
+  aircraftID,
+  crewMember,
+  isOwner,
+  refetchData,
+}: Prop) => {
   //  Member being removed:
   const [removeMember, setRemoveMember] = useState<{
     id: string;
@@ -40,7 +41,7 @@ export const DetailedCrewCard = ({ aircraftID, crewMember, isOwner }: Prop) => {
       .then(() => {
         setRemoveMember(null);
         createNotification(NOTIFICATION_TYPES.SUCCESS);
-        navigate(0);
+        return refetchData && refetchData();
       })
       .catch(() => {
         createNotification(NOTIFICATION_TYPES.ERROR);
@@ -161,4 +162,5 @@ type Prop = {
   aircraftID: string;
   isOwner?: boolean;
   crewMember?: IAircraftPerson;
+  refetchData?: () => void;
 };

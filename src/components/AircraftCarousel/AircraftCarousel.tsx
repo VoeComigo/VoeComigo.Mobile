@@ -8,6 +8,7 @@ import { AircraftInviteCard } from "../AircraftInviteCard/AircraftInviteCard";
 export const AircraftCarousel = ({
   aircraftData,
   cardTypes = "AIRCRAFT",
+  refetchData,
 }: Props) => {
   const { onTouchStart, onTouchMove, onTouchEnd, swipeDir, swipableRef } =
     useSwipeContent<HTMLDivElement>({
@@ -39,7 +40,11 @@ export const AircraftCarousel = ({
         return cardTypes === "AIRCRAFT" ? (
           <AircraftCards key={el.id} aircraftData={el} />
         ) : (
-          <AircraftInviteCard key={el.id} aircraftData={el} />
+          <AircraftInviteCard
+            key={el.id}
+            aircraftData={el}
+            refetchData={refetchData}
+          />
         );
       })}
     </S.Content>
@@ -49,4 +54,5 @@ export const AircraftCarousel = ({
 type Props = {
   aircraftData: IAircraft[];
   cardTypes?: "AIRCRAFT" | "INVITATION";
+  refetchData?: () => void;
 };

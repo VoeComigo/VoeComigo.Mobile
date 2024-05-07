@@ -1,7 +1,6 @@
 import * as S from "./AircraftInviteCard.styles";
 import Button from "@mui/material/Button";
 import { Card } from "../Card/Card";
-import { useNavigate } from "react-router-dom";
 import { IAircraft } from "../AircraftCard/types";
 import { ImageContainer, InformationContainer } from "../AircraftCard";
 import {
@@ -11,9 +10,11 @@ import {
 import { useNotificationContext } from "../../contexts";
 import { ACCEPT_MESSAGES, DECLINE_MESSAGES } from "./AircraftInviteCard.utils";
 
-export const AircraftInviteCard = ({ className, aircraftData }: Props) => {
-  const navigate = useNavigate();
-
+export const AircraftInviteCard = ({
+  className,
+  aircraftData,
+  refetchData,
+}: Props) => {
   const { acceptInvitation, loading: acceptLoading } = useAcceptInvitation();
   const { declineInvitation, loading: declineLoading } = useDeclineInvitation();
 
@@ -24,7 +25,7 @@ export const AircraftInviteCard = ({ className, aircraftData }: Props) => {
       acceptInvitation([{ aircraftID: aircraftData.id }])
         .then(() => {
           createNotification(ACCEPT_MESSAGES.SUCCESS);
-          return navigate(0); // refresh
+          return refetchData && refetchData(); // Data refetch
         })
         .catch(() => {
           createNotification(ACCEPT_MESSAGES.ERROR);
@@ -35,7 +36,7 @@ export const AircraftInviteCard = ({ className, aircraftData }: Props) => {
       declineInvitation([{ aircraftID: aircraftData.id }])
         .then(() => {
           createNotification(DECLINE_MESSAGES.SUCCESS);
-          return navigate(0); // refresh
+          return refetchData && refetchData(); // Data refetch
         })
         .catch(() => {
           createNotification(DECLINE_MESSAGES.ERROR);
@@ -79,4 +80,5 @@ export const AircraftInviteCard = ({ className, aircraftData }: Props) => {
 type Props = {
   className?: string;
   aircraftData: IAircraft;
+  refetchData?: () => void;
 };

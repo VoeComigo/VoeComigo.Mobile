@@ -10,6 +10,9 @@ import {
   LOGIN_SCHEMA,
 } from "./LoginPage.validator";
 import { useNotificationContext } from "../../../../contexts";
+import { useSignIn } from "../../hooks/useSignIn";
+import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/PageEventsContext";
+import { useEffect } from "react";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -28,29 +31,32 @@ export const LoginPage = () => {
   //  Controls the helperText in the bottom of the inputs:
   const showHelperText: boolean = true;
 
+  //  Sign-in api request:
+  const { signIn, loading, data, error } = useSignIn();
+
+  //  Contexts:
   const { createNotification } = useNotificationContext();
+  const { onChangeEvent } = usePageEventsHandling();
 
-  function getRandomNotifyType(): "info" | "success" | "error" | "warn" {
-    const array: string[] = ["info", "success", "error", "warn"];
-    return array.sort(() => Math.random() - 0.5)[0] as
-      | "info"
-      | "success"
-      | "error"
-      | "warn";
-  }
+  useEffect(() => {
+    if (!loading && data) {
+      onChangeEvent("done");
+      sessionStorage.setItem("logged-user", JSON.stringify(data));
+      return navigate("/aircraft");
+    }
+    if (!loading && error) {
+      createNotification({
+        type: "error",
+        title: "Dados incorretos",
+        text: "Revise às informações e tente novamente",
+      });
+      return onChangeEvent("done");
+    }
+  }, [loading]);
 
-  function onSubmit(data: ILoginForm) {
-    console.log(data);
-    //  API Request
-    sessionStorage.setItem("logged-user", "{logged: true;}");
-
-    createNotification({
-      type: getRandomNotifyType(),
-      title: "Mama me olhando",
-      text: "Toda gatinha que é novinha quer mamar a cabecinha, se segura meu tigrão, que lá vai meu cabeção",
-    });
-    //  Post login route:
-    navigate("/aircraft");
+  function onSubmit(e: ILoginForm) {
+    onChangeEvent("loading");
+    signIn(undefined, e);
   }
 
   return (
@@ -63,12 +69,12 @@ export const LoginPage = () => {
         <form onSubmit={handleSubmit(onSubmit)} id="login-form">
           <div className="input-area">
             <TextField
-              {...register("username")}
+              {...register("userName")}
               variant="outlined"
-              label="Nome de usuário"
+              label="E-mail"
               size="small"
-              error={!!errors.username}
-              helperText={showHelperText ? errors.username?.message : undefined}
+              error={!!errors.userName}
+              helperText={showHelperText ? errors.userName?.message : undefined}
             />
             <div className="password-div">
               <TextField

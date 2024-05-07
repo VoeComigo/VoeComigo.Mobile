@@ -20,12 +20,12 @@ export const AircraftCrewPage = () => {
 
   useEffect(() => {
     getCrew();
-    onChangeEvent(`loading`);
   }, []);
 
   useEffect(() => {
-    if (!loading && data) return onChangeEvent("done");
+    if (loading) return onChangeEvent(`loading`);
     if (!loading && error) return onChangeEvent("error");
+    if (!loading) return onChangeEvent("done");
   }, [loading]);
 
   //  Callback for the cards:
@@ -45,6 +45,7 @@ export const AircraftCrewPage = () => {
               aircraftID={id || ""}
               crewMember={data?.crew[index]}
               isOwner={data?.isOwner}
+              refetchData={() => getCrew()}
             />
             <SimpleCrewCaroulsel
               isOwner={data?.isOwner}

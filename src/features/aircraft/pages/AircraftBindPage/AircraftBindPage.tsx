@@ -16,12 +16,13 @@ export const AircraftBindPage = () => {
 
   useEffect(() => {
     getAircraftInvitation();
-    onChangeEvent("loading");
   }, []);
 
   useEffect(() => {
-    if (!loading && data) return onChangeEvent("done");
+    console.log(loading);
+    if (loading) return onChangeEvent("loading");
     if (!loading && error) return onChangeEvent("error");
+    if (!loading) return onChangeEvent("done");
   }, [loading]);
 
   return (
@@ -34,7 +35,11 @@ export const AircraftBindPage = () => {
     >
       <S.Container>
         {data ? (
-          <AircraftCarousel aircraftData={data} cardTypes="INVITATION" />
+          <AircraftCarousel
+            aircraftData={data}
+            cardTypes="INVITATION"
+            refetchData={() => getAircraftInvitation()}
+          />
         ) : (
           <EmptyCard
             title={
