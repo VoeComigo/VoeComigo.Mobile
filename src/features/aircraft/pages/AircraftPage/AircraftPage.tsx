@@ -32,7 +32,10 @@ export const AircraftPage = () => {
     >
       <S.Container>
         {data ? (
-          <AircraftCarousel aircraftData={data} />
+          <AircraftCarousel
+            aircraftData={data}
+            refetchData={() => getAircraft()}
+          />
         ) : (
           <EmptyCard
             title={

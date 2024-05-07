@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useDoubleTap } from "../../../hooks";
 import { IAircraftModel } from "../types";
 import { mask } from "../../../utils/mask";
-import { useNavigate } from "react-router-dom";
 import { useSetFavoriteAircraft } from "../../../features/aircraft/hooks/useSetFavoriteAircraft";
 import { useNotificationContext } from "../../../contexts";
 import { NOTIFICATION_TYPES } from "./ImageContainer.utils";
@@ -20,10 +19,8 @@ export const ImageContainer = ({
   image,
   role,
   isAircraftCard = true,
+  refetchData,
 }: Props) => {
-  //  Navigator:
-  const navigate = useNavigate();
-
   // Favorite state:
   const [favoritePlane, setFavoritePlane] = useState<boolean>(isFavorite);
 
@@ -39,7 +36,7 @@ export const ImageContainer = ({
     setFavoriteAircraft([{ aircraftID: id }])
       .then(() => {
         createNotification(NOTIFICATION_TYPES.SUCCESS);
-        navigate(0);
+        return refetchData && refetchData();
       })
       .catch(() => {
         createNotification(NOTIFICATION_TYPES.ERROR);
@@ -108,4 +105,5 @@ type Props = {
   image: string | null;
   isAircraftCard?: boolean;
   role: string;
+  refetchData?: () => void;
 };

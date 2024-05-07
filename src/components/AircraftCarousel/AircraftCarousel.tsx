@@ -38,7 +38,11 @@ export const AircraftCarousel = ({
     >
       {aircraftData.map((el) => {
         return cardTypes === "AIRCRAFT" ? (
-          <AircraftCards key={el.id} aircraftData={el} />
+          <AircraftCards
+            key={el.id}
+            aircraftData={el}
+            refetchData={refetchData}
+          />
         ) : (
           <AircraftInviteCard
             key={el.id}
