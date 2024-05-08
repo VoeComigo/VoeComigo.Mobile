@@ -185,6 +185,7 @@ export const MyProfilePage = () => {
           value={mask("phone", data?.phoneNumber)}
           onClick={() => toggleUpdateModal("PHONE")}
         />
+        <div className="bottom-spacer"></div>
       </S.OptionsArea>
       <BottomModal {...controller}>
         <S.ModalContent>

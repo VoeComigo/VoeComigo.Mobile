@@ -7,7 +7,7 @@ export const Background = styled.div`
   justify-content: center;
 
   left: 0;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   bottom: 0;
@@ -31,7 +31,7 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
 
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
 

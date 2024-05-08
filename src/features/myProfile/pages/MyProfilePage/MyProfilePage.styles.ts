@@ -18,8 +18,10 @@ export const AvatarArea = styled.div`
   width: 100%;
   height: 320px;
   background-color: ${theme.primary};
+  background-image: linear-gradient(337deg, #00000059, transparent);
   border-radius: 0rem 0rem 5rem 5rem;
   padding: 1.5rem;
+  filter: drop-shadow(0px 4px 3px #00000033);
 
   .avatar-area {
     display: flex;
@@ -41,7 +43,8 @@ export const AvatarArea = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: ${theme.primary};
+    //background-color: ${theme.primary};
+    background-color: transparent;
     width: 40px;
     height: 40px;
     border-radius: 100%;
@@ -66,10 +69,14 @@ export const AvatarArea = styled.div`
 export const OptionsArea = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 115%;
   overflow: visible;
   background-color: ${theme.lightGrey};
   padding: 20rem 1.5rem 2.5rem 1.5rem;
+
+  .bottom-spacer {
+    height: 64px;
+  }
 `;
 
 export const ModalContent = styled.div`
