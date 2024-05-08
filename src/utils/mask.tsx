@@ -1,6 +1,10 @@
-type MaskType = "cpf" | "cnpj" | "registration";
+type MaskType = "cpf" | "cnpj" | "registration" | "date" | "phone";
 
-export const mask = (type: MaskType, value: string | number): string => {
+export const mask = (
+  type: MaskType,
+  value: string | number | null | undefined
+): string => {
+  if (!value) return "";
   const aux: string = value.toString();
 
   if (type === "cpf")
@@ -11,5 +15,12 @@ export const mask = (type: MaskType, value: string | number): string => {
       "$1.$2.$3/$4-$5"
     );
   if (type === "registration") return aux.replace(/^(\w{2})(\w{3})/g, "$1-$2");
+  if (type === "date") {
+    const [yyyy, dd, mm] = value.toString().split("-");
+    return `${dd}/${mm}/${yyyy}`;
+  }
+  if (type === "phone") {
+    return aux.replace(/^(\d{2})(\d{2})(\d{4,5})(\d{4})/g, "+$1 ($2) $3-$4");
+  }
   return aux;
 };
