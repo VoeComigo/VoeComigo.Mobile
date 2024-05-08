@@ -16,7 +16,7 @@ export const mask = (
     );
   if (type === "registration") return aux.replace(/^(\w{2})(\w{3})/g, "$1-$2");
   if (type === "date") {
-    const [yyyy, dd, mm] = value.toString().split("-");
+    const [yyyy, mm, dd] = value.toString().split("-");
     return `${dd}/${mm}/${yyyy}`;
   }
   if (type === "phone") {

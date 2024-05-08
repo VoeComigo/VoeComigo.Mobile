@@ -71,3 +71,61 @@ export const OptionsArea = styled.div`
   background-color: ${theme.lightGrey};
   padding: 20rem 1.5rem 2.5rem 1.5rem;
 `;
+
+export const ModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+
+  .input-area {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .modal-title-area {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .title {
+      font-size: ${theme.fontSize22};
+      font-weight: ${theme.fontWeight600};
+      color: ${theme.purple};
+    }
+    .subtitle {
+      font-size: ${theme.fontSize16};
+      color: ${theme.purple};
+    }
+  }
+
+  .checkbox-area {
+    width: 100%;
+    display: flex;
+
+    font-size: ${theme.fontSize14};
+    color: ${theme.purple};
+
+    align-items: center;
+    justify-content: left;
+  }
+
+  .submit-area {
+    width: 100%;
+    margin-bottom: 2.5rem;
+    .primary {
+      width: 100%;
+      background-color: ${theme.primary};
+      transition: 200ms all;
+      &:disabled {
+        background-color: ${theme.grey4};
+        color: ${theme.grey5};
+      }
+    }
+  }
+`;

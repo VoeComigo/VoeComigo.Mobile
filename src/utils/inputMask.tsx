@@ -6,7 +6,9 @@ type MaskType =
   | "cellphone"
   | "phoneCellphone"
   | "registration"
-  | "anacCode";
+  | "anacCode"
+  | "date"
+  | "big-text";
 
 export const inputMask = (type: MaskType): string | MaskArray[] => {
   if (type === "registration") return "aa-aaa";
@@ -14,11 +16,13 @@ export const inputMask = (type: MaskType): string | MaskArray[] => {
   if (type === "cpfCnpj")
     return [{ mask: "000.000.000-00" }, { mask: "00.000.000/0000-00" }];
   if (type === "cnpj") return "00.000.000/0000-00";
-  if (type === "phone") return "(00) 0000-0000";
-  if (type === "cellphone") return "(00) 00000-0000";
+  if (type === "phone") return "+00 (00) 0000-0000";
+  if (type === "cellphone") return "+00 (00) 00000-0000";
   if (type === "phoneCellphone")
-    return [{ mask: "(00) 0000-0000" }, { mask: "(00) 00000-0000" }];
+    return [{ mask: "+00 (00) 0000-0000" }, { mask: "+00 (00) 00000-0000" }];
   if (type === "anacCode") return "000000";
+  if (type === "date") return "00/00/0000";
+  if (type === "big-text") return "****************************************";
   return "";
 };
 

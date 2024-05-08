@@ -9,7 +9,7 @@ export interface IProfile {
   phoneNumber: string | null;
   anacCode: string | null;
   photo: string | null;
-  acceptWhatsappNotification: boolean | null;
+  acceptWhatsAppNotification: boolean | null;
   acceptEmailNotification: boolean | null;
   completeRegistration: boolean;
 }
