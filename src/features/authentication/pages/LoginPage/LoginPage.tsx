@@ -42,7 +42,7 @@ export const LoginPage = () => {
     if (!loading && data) {
       onChangeEvent("done");
       sessionStorage.setItem("logged-user", JSON.stringify(data));
-      return navigate("/aircraft");
+      return navigate("/dashboard");
     }
     if (!loading && error) {
       createNotification({

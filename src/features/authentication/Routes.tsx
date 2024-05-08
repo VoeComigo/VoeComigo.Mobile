@@ -6,7 +6,7 @@ import {
 } from "./pages";
 import { IRoute } from "../../utils/RouteProtection";
 
-export const newUserRoutes: IRoute[] = [
+export const authenticationRoutes: IRoute[] = [
   {
     path: "/",
     element: <SplashScreen />,

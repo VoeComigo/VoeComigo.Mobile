@@ -9,6 +9,8 @@ import {
   IRegisterForm,
   REGISTER_SCHEMA,
 } from "./RegisterPage.validator";
+import { useSignUp } from "../../hooks/useSignUp";
+import { useNotificationContext } from "../../../../contexts";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -24,9 +26,31 @@ export const RegisterPage = () => {
     defaultValues: DEFAULT_VALUES,
   });
 
-  function onSubmit(data: IRegisterForm) {
-    console.log(data);
-    //  API Request
+  //  API Fetching:
+  const { signUp, loading } = useSignUp();
+
+  //  Notification:
+  const { createNotification } = useNotificationContext();
+
+  async function onSubmit(data: IRegisterForm) {
+    try {
+      await signUp(undefined, {
+        userName: data.userName,
+        password: data.password,
+      });
+      createNotification({
+        type: "success",
+        title: "Cadastro realizado",
+        text: "Cadastro realizado, efetue o login para acessar a plataforma",
+      });
+      navigate("/signin");
+    } catch {
+      createNotification({
+        type: "error",
+        title: "Erro ao cadastrar",
+        text: "Ocorreu um erro ao cadastrar o usuário, revise os dados e tente novamente",
+      });
+    }
   }
 
   //  Controls the helperText in the bottom of the inputs:
@@ -42,12 +66,12 @@ export const RegisterPage = () => {
         <form onSubmit={handleSubmit(onSubmit)} id="form-sign-up">
           <div className="input-area">
             <TextField
-              {...register("email")}
+              {...register("userName")}
               variant="outlined"
               label="Email"
               size="small"
-              error={!!errors.email}
-              helperText={showHelperText ? errors.email?.message : undefined}
+              error={!!errors.userName}
+              helperText={showHelperText ? errors.userName?.message : undefined}
             />
             <TextField
               {...register("password")}
@@ -75,6 +99,7 @@ export const RegisterPage = () => {
               className="primary"
               type="submit"
               variant="contained"
+              disabled={loading}
               disableElevation
             >
               Cadastrar

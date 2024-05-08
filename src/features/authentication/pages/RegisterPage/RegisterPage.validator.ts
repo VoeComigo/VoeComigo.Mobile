@@ -1,19 +1,19 @@
 import * as yup from "yup";
 
 export interface IRegisterForm {
-  email: string;
+  userName: string;
   password: string;
   confirmPassword: string;
 }
 
 export const DEFAULT_VALUES: IRegisterForm = {
-  email: "",
+  userName: "",
   password: "",
   confirmPassword: "",
 };
 
 export const REGISTER_SCHEMA = yup.object({
-  email: yup.string().email().required("Não é um e-mail válido"),
+  userName: yup.string().email().required("Não é um e-mail válido"),
   password: yup.string().required("Campo não pode estar vazio"),
   confirmPassword: yup
     .string()
