@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/PageEventsContext";
 import { useGetProfile } from "../../hooks/useGetProfile";
 import { useNavigate } from "react-router-dom";
+import { DashboardHeader } from "./DashboardPage.utils";
 
 export const DashboardPage = () => {
   //  Navigation handling:
@@ -32,7 +33,14 @@ export const DashboardPage = () => {
     <PageContainer
       actualRoute="dashboard"
       header={{
-        title: `Bem vindo, ${data?.name}`,
+        customHeader: (
+          <DashboardHeader
+            greetings="Bem vindo,"
+            username={data?.name || ""}
+            userPhoto={data?.photo || ""}
+            onClick={() => navigate("/my-profile")}
+          />
+        ),
       }}
     >
       <S.Container></S.Container>

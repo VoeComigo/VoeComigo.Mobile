@@ -59,10 +59,14 @@ export const PageContainer = ({
   return (
     <>
       <S.Container>
-        <div className="header-section">
-          <h1>{header.title}</h1>
-          {header.subtitle && <h2>{header.subtitle}</h2>}
-        </div>
+        {header.customHeader && !header.title ? (
+          <div className="header-section">{header.customHeader}</div>
+        ) : (
+          <div className="header-section">
+            <h1>{header.title}</h1>
+            {header.subtitle && <h2>{header.subtitle}</h2>}
+          </div>
+        )}
         {children}
         <Modal {...controller} contentStyle={getModalProps().modalStyle}>
           {getModalProps().element}
@@ -83,6 +87,7 @@ type Props = {
 };
 
 type HeaderProps = {
-  title: string;
+  title?: string;
   subtitle?: string;
+  customHeader?: React.ReactNode;
 };

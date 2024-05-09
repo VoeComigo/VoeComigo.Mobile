@@ -19,10 +19,14 @@ function stringToColor(string: string) {
 }
 
 export function stringAvatar(name: string) {
+  const [fullname, surname] = name.split(" ");
+
+  if (!fullname || !surname) return null;
+
   return {
     sx: {
       bgcolor: stringToColor(name),
     },
-    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+    children: `${fullname[0]}${surname[0]}`,
   };
 }
