@@ -1,6 +1,7 @@
 import * as S from "./MyProfilePage.styles";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { Avatar, Button, Checkbox } from "@mui/material";
 import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/PageEventsContext";
 import { useEffect, useState } from "react";
@@ -14,7 +15,7 @@ import { useUpdateProfile } from "../../hooks/useUpdateProfile";
 import {
   TYPES_DICTIONARY,
   UPDATE_TYPES,
-  getInputMaskByUpdateType,
+  getInputPropsByUpdateType,
   getModalTitleByType,
   getTextBoxLabelByUpdateType,
   setDefaultInputValues,
@@ -142,12 +143,17 @@ export const MyProfilePage = () => {
           </button>
         </div>
         <div className="avatar-area">
-          <Avatar
-            className="avatar"
-            {...stringAvatar(data?.name || "Sem Cadastro")}
-            src={data?.photo || ""}
-            alt={data?.email}
-          />
+          <div className="change-avatar">
+            <Avatar
+              className="avatar"
+              {...stringAvatar(data?.name || "Sem Cadastro")}
+              src={data?.photo || ""}
+              alt={data?.email}
+            />
+            <button className="change-button">
+              <AddAPhotoIcon />
+            </button>
+          </div>
         </div>
       </S.AvatarArea>
       <S.OptionsArea>
@@ -201,7 +207,7 @@ export const MyProfilePage = () => {
               type="text"
               size="small"
               value={inputValue.text}
-              mask={getInputMaskByUpdateType(updateType)}
+              {...getInputPropsByUpdateType(updateType)}
               onChange={(e) =>
                 setInputValue({ ...inputValue, text: e.target.value })
               }

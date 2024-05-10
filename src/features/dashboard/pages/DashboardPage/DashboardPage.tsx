@@ -5,6 +5,7 @@ import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/Pa
 import { useGetProfile } from "../../hooks/useGetProfile";
 import { useNavigate } from "react-router-dom";
 import { DashboardHeader } from "./DashboardPage.utils";
+import { AircraftActionCard } from "../../../../components";
 
 export const DashboardPage = () => {
   //  Navigation handling:
@@ -43,7 +44,9 @@ export const DashboardPage = () => {
         ),
       }}
     >
-      <S.Container></S.Container>
+      <S.Container>
+        <AircraftActionCard registry={""} model={""} type={"find"} />
+      </S.Container>
     </PageContainer>
   );
 };

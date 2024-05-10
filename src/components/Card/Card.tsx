@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import * as S from "./Card.styles";
 
 export const Card = ({ className, children }: Props) => {
@@ -7,5 +7,5 @@ export const Card = ({ className, children }: Props) => {
 
 type Props = {
   className?: string;
-  children?: ReactElement;
+  children?: ReactNode;
 };

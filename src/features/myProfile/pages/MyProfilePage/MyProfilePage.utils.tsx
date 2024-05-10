@@ -19,6 +19,15 @@ export enum MASK_DICTIONARY {
   PHONE = "phoneCellphone",
 }
 
+export enum PLACEHOLDER_DICTIONARY {
+  NAME = " ",
+  DATEOFBIRTH = "_",
+  CPFCNPJ = "_",
+  ANACCODE = "_",
+  EMAIL = " ",
+  PHONE = "_",
+}
+
 export type UPDATE_TYPES =
   | "NAME"
   | "DATEOFBIRTH"
@@ -31,8 +40,11 @@ export function getModalTitleByType(type: UPDATE_TYPES): string {
   return TYPES_DICTIONARY[type];
 }
 
-export function getInputMaskByUpdateType(type: UPDATE_TYPES) {
-  return inputMask(MASK_DICTIONARY[type]);
+export function getInputPropsByUpdateType(type: UPDATE_TYPES) {
+  return {
+    placeholderChar: PLACEHOLDER_DICTIONARY[type] as string,
+    mask: inputMask(MASK_DICTIONARY[type]),
+  };
 }
 
 export function getTextBoxLabelByUpdateType(type: UPDATE_TYPES): string {

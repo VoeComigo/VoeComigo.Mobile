@@ -28,9 +28,37 @@ export const AvatarArea = styled.div`
     width: 100%;
     align-items: center;
     justify-content: center;
-    .avatar {
-      width: 140px;
-      height: 140px;
+
+    .change-avatar {
+      position: relative;
+      //overflow: hidden;
+
+      .avatar {
+        width: 140px;
+        height: 140px;
+      }
+
+      .change-button {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        bottom: 0;
+        right: 0;
+        border-radius: 50%;
+        background-color: ${theme.lightGrey};
+        box-shadow: ${theme.shadow4};
+        transition: 200ms all;
+
+        &:active {
+          filter: brightness(0.8);
+        }
+        svg {
+          fill: ${theme.purple};
+        }
+      }
     }
   }
 

@@ -38,6 +38,7 @@ export const voeComigoTheme = {
   shadow: "rgb(0 0 0 / 37%) 0px 0px 5px 2px",
   shadow2: "#00000024 0px 0px 5px 2px",
   shadow3: "0 0 11px 1px #00000078",
+  shadow4: "0px 2px 4px 0px #0006",
   //  Other colors
   lightBlue: "#0083FF",
   blue: "#97CDFF",
