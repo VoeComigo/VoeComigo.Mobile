@@ -24,10 +24,17 @@ export const Container = styled.div`
   }
 
   .header-section {
+    position: fixed;
+    z-index: 10;
+
     width: 100%;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
+    padding: 1rem;
+
+    background-color: white;
     border-bottom: 1px solid ${theme.grey};
+
+    left: 0;
+    top: 0;
   }
 
   .modal-content-aircraft {

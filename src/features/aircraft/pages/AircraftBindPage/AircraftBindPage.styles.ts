@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-
+  padding-top: 3rem;
   gap: 1rem;
 
   .modal-content {
