@@ -7,7 +7,7 @@ import { IAircraftPerson } from "../../../features/aircraft/hooks/useGetCrew";
 
 export const SimpleCrewCaroulsel = ({ crewMembers, onChange }: Prop) => {
   //  Swipe content controller:
-  const { onTouchStart, onTouchMove, onTouchEnd, swipeDir, swipableRef } =
+  /* const { onTouchStart, onTouchMove, onTouchEnd, swipeDir, swipableRef } =
     useSwipeContent<HTMLDivElement>({
       swipeMode: "medium",
       slideAmount: (crewMembers && crewMembers.length) || 0,
@@ -28,24 +28,13 @@ export const SimpleCrewCaroulsel = ({ crewMembers, onChange }: Prop) => {
   //  Change callback:
   useEffect(() => {
     onChange(sliderDotController.highlighted);
-  }, [sliderDotController]);
+  }, [sliderDotController]); */
 
   return (
-    <S.Container $width={elementFullWidth} $xOffset={offsetX}>
-      {/* <h1>Tripulação:</h1> */}
-      <div
-        ref={swipableRef}
-        className="crew-selector-container"
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-      >
-        {crewMembers &&
-          crewMembers.map((el) => (
-            <SimpleCrewCard key={el.id} crewMember={el} />
-          ))}
-      </div>
-      <SliderDots {...sliderDotController} />
+    <S.Container>
+      {crewMembers &&
+        crewMembers.map((el) => <SimpleCrewCard key={el.id} crewMember={el} />)}
+      {/* <SliderDots {...sliderDotController} /> */}
     </S.Container>
   );
 };

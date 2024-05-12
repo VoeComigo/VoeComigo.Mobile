@@ -3,43 +3,17 @@ import { voeComigoTheme as theme } from "../../../theme/globalTheme";
 import { Card } from "../..";
 
 export const EnchancedCard = styled(Card)`
-  height: 80px;
-  padding: 1rem;
-
-  &.no-data {
-    box-shadow: none;
-    border: 2px dashed ${theme.grey};
-  }
-`;
-
-export const NoContentContainer = styled.button`
   display: flex;
   flex-direction: row;
-  width: 100%;
-  height: 100%;
-  justify-content: space-between;
-  align-items: center;
-  background-color: ${theme.lightGrey};
-
-  .icon-blue {
-    width: 24px;
-    height: 24px;
-    fill: ${theme.purple2};
-  }
-
-  .no-content-text {
-    text-align: center;
-    font-size: ${theme.fontSize22};
-    color: ${theme.purple2};
-  }
-`;
-
-export const Container = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
+  flex-shrink: 0; // Prevent wrapping on inline-flex
   gap: 1rem;
+
+  height: 80px;
+  width: 100%;
+  padding: 1rem;
+
+  align-items: center;
+  justify-content: center;
 
   .avatar {
     width: 48px;

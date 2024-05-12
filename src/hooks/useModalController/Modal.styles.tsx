@@ -35,6 +35,7 @@ type Props = {
 export const Content = styled.div<Props>`
   display: flex;
   flex-direction: column;
+  position: relative;
 
   width: 100%;
   //height: 100%;
