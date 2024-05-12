@@ -32,6 +32,9 @@ export const LoaderWrapper = styled.div`
 
   transition: 300ms all;
 
+  opacity: 0;
+  pointer-events: none;
+
   img {
     object-fit: contain;
     filter: drop-shadow(0px 0px 2px #00000052);
@@ -71,6 +74,15 @@ export const LoaderWrapper = styled.div`
   }
   .elevate {
     filter: drop-shadow(0px 1px 0px black);
+  }
+
+  &.loader-show {
+    opacity: 1;
+    pointer-events: all;
+  }
+  &.loader-hide {
+    opacity: 0;
+    pointer-events: none;
   }
 `;
 

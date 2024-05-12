@@ -5,17 +5,6 @@ import { ErrorContainer } from "./components/ErrorContainer/ErrorContainer";
 // Page events status type:
 export type PageEventsStatus = "loading" | "error" | "done";
 
-//  Provider that wraps all default page events generated:
-export const PageEventsProvider = ({ status }: ProviderProps) => {
-  if (status === "loading") return <LoadingContainer />;
-  if (status === "error") return <ErrorContainer />;
-  return <></>;
-};
-
-type ProviderProps = {
-  status: PageEventsStatus;
-};
-
 //  Actual notification context:
 type PageEventsContextType = {
   onChangeEvent: (status: PageEventsStatus) => void;
@@ -44,8 +33,10 @@ export const PageEventsContextProvider = ({
 
   return (
     <PageEventsContext.Provider value={{ onChangeEvent: onChangeEvent }}>
-      <PageEventsProvider status={pageEvent} />
-      {pageEvent !== "error" && children}
+      <LoadingContainer
+        className={pageEvent === "loading" ? "loader-show" : "loader-hide"}
+      />
+      {pageEvent !== "error" ? children : <ErrorContainer />}
     </PageEventsContext.Provider>
   );
 };

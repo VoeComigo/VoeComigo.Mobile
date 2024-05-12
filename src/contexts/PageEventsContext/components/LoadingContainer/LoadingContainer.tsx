@@ -15,7 +15,7 @@ const factsArray = [
   `Manter a ordem na cabine de passageiros do avião é essencial para a segurança e o conforto do voo. Se algum ocupante cometer uma indisciplina, como agressões físicas e verbais, ele pode ser obrigado a terminar a viagem amarrado no assento e algemado, após ser contido pelos comissários.`,
 ];
 
-export const LoadingContainer = () => {
+export const LoadingContainer = ({ className }: Props) => {
   function getRandomFact() {
     return Math.floor(Math.random() * (factsArray.length - 1 + 1));
   }
@@ -40,7 +40,7 @@ export const LoadingContainer = () => {
   }, []);
 
   return (
-    <S.LoaderWrapper>
+    <S.LoaderWrapper className={className}>
       <img src={Logo} alt="" width={64} height={64} />
       <div className="spinner-text">
         <S.Spinner />
@@ -55,4 +55,8 @@ export const LoadingContainer = () => {
       </S.CuriosityArea>
     </S.LoaderWrapper>
   );
+};
+
+type Props = {
+  className?: string;
 };

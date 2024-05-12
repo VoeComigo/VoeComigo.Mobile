@@ -1,3 +1,5 @@
+import { yellow } from "@mui/material/colors";
+
 export const voeComigoTheme = {
   //  Main color:
   primary: "#006DFF",
@@ -57,4 +59,8 @@ export const voeComigoTheme = {
   red3: "#ff0721",
   transparent: "#0000003d;",
   white: "#fff",
+  green2: "#00B050",
+  green3: "#E2F0D9",
+  yellow2: "#C1890B",
+  yellow3: "#FEF7CA",
 };

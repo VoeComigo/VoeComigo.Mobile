@@ -15,6 +15,20 @@ export interface IAircraft {
   passengerAmount: number;
   seatsAmount: number;
   maxCrewMembers: number;
+  totalHours: string;
+  hasOpenningTerm: boolean;
+  flightPlan: IFlightPlan;
+}
+
+export interface IFlightPlan {
+  date: string;
+  from: IFlightData;
+  to: IFlightData;
+}
+
+export interface IFlightData {
+  name?: string;
+  icaoCode?: string;
 }
 
 export interface IAircraftModel {

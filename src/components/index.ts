@@ -11,7 +11,7 @@ export { InformationButton } from "./InformationButton/InformationButton";
 export { MainMenu } from "./MainMenu/MainMenu";
 export { PageContainer } from "./PageContainer/PageContainer";
 export { Accordion } from "./Accordion/Accordion";
-export { AircraftActionCard } from "./AircraftActionCards/AircraftActionCards";
+export { AircraftDashboardCard } from "./AircraftDashboardCard/AircraftDashboardCard";
 export { DialogGenerator } from "./DialogGenerator/DialogGenerator";
 export { MaskedTextField } from "./MaskedTextField/MaskedTextField";
 export * from "./Icons";
