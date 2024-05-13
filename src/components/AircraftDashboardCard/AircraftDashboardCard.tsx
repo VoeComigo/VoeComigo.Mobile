@@ -26,8 +26,8 @@ export const AircraftDashboardCard = ({ className, aircraft }: Props) => {
           </div>
         </div>
       </S.DataGrid>
-      {aircraft.hasOpenningTerm && !aircraft.flightPlan.date && <NoFlight />}
-      {aircraft.hasOpenningTerm && aircraft.flightPlan.date && (
+      {aircraft.hasOpenningTerm && !aircraft.flightPlan && <NoFlight />}
+      {aircraft.hasOpenningTerm && aircraft.flightPlan && (
         <NextFlight
           date={aircraft.flightPlan.date}
           from={aircraft.flightPlan.from}

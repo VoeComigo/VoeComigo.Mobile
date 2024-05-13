@@ -15,6 +15,8 @@ export const EnchancedCard = styled(Card)`
   align-items: center;
   justify-content: center;
 
+  user-select: none;
+
   .avatar {
     width: 48px;
     height: 48px;

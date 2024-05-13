@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { voeComigoTheme as theme } from "../../../theme/globalTheme";
 
+export const Wrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const Container = styled.div`
   display: inline-flex;
   gap: 1rem;

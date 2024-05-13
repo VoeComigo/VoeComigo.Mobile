@@ -3,81 +3,146 @@
   https://github.com/bushblade/Full-Screen-Touch-Slider
 */
 
-const slider = document.querySelector(".slider-container"),
-  slides = Array.from(document.querySelectorAll(".slide"));
+import React, { useState } from "react";
+import { createRef, useRef } from "react";
 
-let isDragging = false,
-  startPos = 0,
-  currentTranslate = 0,
-  prevTranslate = 0,
-  animationID = 0,
-  currentIndex = 0;
+type ISliderProps = {
+  slidesAmount?: number;
+  hasSliderController?: boolean;
+};
 
-slides.forEach((slide, index) => {
-  const slideImage = slide.querySelector("img");
-  slideImage.addEventListener("dragstart", (e) => e.preventDefault());
+export const useSliderV2 = ({
+  slidesAmount,
+  hasSliderController,
+}: ISliderProps) => {
+  // Main component refs:
+  const carouselRef = createRef<HTMLDivElement>();
+  const slidesRef: React.MutableRefObject<HTMLDivElement | null>[] = [];
+  const controllerRef: React.MutableRefObject<HTMLButtonElement | null>[] = [];
 
-  // Touch events
-  slide.addEventListener("touchstart", touchStart(index));
-  slide.addEventListener("touchend", touchEnd);
-  slide.addEventListener("touchmove", touchMove);
-
-  // Mouse events
-  slide.addEventListener("mousedown", touchStart(index));
-  slide.addEventListener("mouseup", touchEnd);
-  slide.addEventListener("mouseleave", touchEnd);
-  slide.addEventListener("mousemove", touchMove);
-});
-
-function touchStart(index) {
-  return function (event) {
-    currentIndex = index;
-    startPos = getPositionX(event);
-    isDragging = true;
-
-    // https://css-tricks.com/using-requestanimationframe/
-    animationID = requestAnimationFrame(animation);
-    slider.classList.add("grabbing");
-  };
-}
-
-function touchEnd() {
-  isDragging = false;
-  cancelAnimationFrame(animationID);
-
-  const movedBy = currentTranslate - prevTranslate;
-
-  if (movedBy < -100 && currentIndex < slides.length - 1) currentIndex += 1;
-
-  if (movedBy > 100 && currentIndex > 0) currentIndex -= 1;
-
-  setPositionByIndex();
-
-  slider.classList.remove("grabbing");
-}
-
-function touchMove(event) {
-  if (isDragging) {
-    const currentPosition = getPositionX(event);
-    currentTranslate = prevTranslate + currentPosition - startPos;
+  //    Slider dots controller
+  if (hasSliderController) {
+    Array.from(Array(slidesAmount).keys()).forEach(() => {
+      const dot = useRef<HTMLButtonElement>(null);
+      controllerRef.push(dot);
+    });
+    // Highlight the first slide:
+    controllerRef[0].current && onActivate(controllerRef[0].current);
   }
-}
 
-function getPositionX(event) {
-  return event.type.includes("mouse") ? event.pageX : event.touches[0].clientX;
-}
+  //    Prepare the refs array to use in the slider:
+  Array.from(Array(slidesAmount).keys()).forEach(() => {
+    const slide = useRef<HTMLDivElement>(null);
+    slidesRef.push(slide);
+  });
 
-function animation() {
-  setSliderPosition();
-  if (isDragging) requestAnimationFrame(animation);
-}
+  let isDragging: boolean = false;
+  let startPos: number = 0;
+  let currentIndex: number = 0;
+  let currentTranslate: number = 0;
+  let prevTranslate: number = 0;
+  let animationID: number = 0;
 
-function setSliderPosition() {
-  slider.style.transform = `translateX(${currentTranslate}px)`;
-}
+  slidesRef.forEach((slide, i) => {
+    if (slide.current) {
+      // Touch events
+      slide.current.ontouchstart = touchStart(i);
+      slide.current.ontouchend = touchEnd;
+      slide.current.ontouchmove = touchMove;
 
-function setPositionByIndex() {
-  currentTranslate = currentIndex * -window.innerWidth;
-  prevTranslate = currentTranslate;
-  setSliderPosition();
-}
+      // Mouse events
+      slide.current.onmousedown = touchStart(i);
+      slide.current.onmouseup = touchEnd;
+      slide.current.onmouseleave = touchEnd;
+      slide.current.onmousemove = touchMove;
+    }
+  });
+
+  function touchStart(i: number) {
+    return function (ev: MouseEvent | TouchEvent) {
+      currentIndex = i;
+      startPos = getPositionX(ev);
+      isDragging = true;
+
+      // https://css-tricks.com/using-requestanimationframe/
+      animationID = requestAnimationFrame(animation);
+    };
+  }
+
+  function touchEnd() {
+    isDragging = false;
+    cancelAnimationFrame(animationID);
+
+    const movedBy = currentTranslate - prevTranslate;
+    if (movedBy < -100 && currentIndex < slidesRef.length - 1)
+      currentIndex += 1;
+
+    if (movedBy > 100 && currentIndex > 0) currentIndex -= 1;
+
+    setPositionByIndex();
+    onChangeSliderDot(currentIndex);
+  }
+
+  function touchMove(ev: MouseEvent | TouchEvent) {
+    if (isDragging) {
+      const currentPosition = getPositionX(ev);
+      currentTranslate = prevTranslate + currentPosition - startPos;
+    }
+  }
+
+  function getPositionX(ev: any) {
+    return ev.type.includes("mouse") ? ev.pageX : ev.touches[0].clientX;
+  }
+
+  //  Animation handler:
+  function animation() {
+    setSliderPosition();
+    if (isDragging) requestAnimationFrame(animation);
+  }
+
+  //  Slides position handler:
+  function setSliderPosition() {
+    if (carouselRef.current)
+      carouselRef.current.style.transform = `translateX(${currentTranslate}px)`;
+  }
+
+  function setPositionByIndex() {
+    currentTranslate =
+      currentIndex * -window.innerWidth +
+      (currentIndex > 0 ? 32 * currentIndex : 0);
+    prevTranslate = currentTranslate;
+    setSliderPosition();
+  }
+
+  //  SLIDER DOT HANDLING AREA:
+  function onActivate(el: HTMLButtonElement) {
+    el.classList.add("active");
+  }
+  function onDeactivate(el: HTMLButtonElement) {
+    el.classList.remove("active");
+  }
+  function onChangeSliderDot(e: number) {
+    if (hasSliderController)
+      controllerRef.forEach((dot, i) => {
+        if (i === e) dot.current && onActivate(dot.current);
+        else dot.current && onDeactivate(dot.current);
+      });
+  }
+  function onClickSliderDot(e: number) {
+    if (controllerRef) {
+      currentIndex = e;
+      setPositionByIndex();
+      onChangeSliderDot(e);
+    }
+  }
+
+  return {
+    carouselRef,
+    slidesRef,
+    sliderController: {
+      sliderDotRef: controllerRef,
+      amount: slidesAmount || 0,
+      onClick: onClickSliderDot,
+    },
+  };
+};
