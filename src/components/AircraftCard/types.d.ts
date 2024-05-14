@@ -16,7 +16,7 @@ export interface IAircraft {
   seatsAmount: number;
   maxCrewMembers: number;
   totalHours: string;
-  hasOpenningTerm: boolean;
+  hasOpeningTerm: boolean;
   flightPlan: IFlightPlan | null;
 }
 

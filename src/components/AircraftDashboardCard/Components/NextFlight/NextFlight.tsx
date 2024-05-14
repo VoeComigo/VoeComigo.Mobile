@@ -9,19 +9,30 @@ export const NextFlight = ({ date, from, to }: props) => {
   return (
     <S.DynamicContent className="flex-col">
       <p className="next-flight-title">
-        <CalendarMonthIcon />
         {`Próximo voo: ${mask("date", date)}`}
+        <CalendarMonthIcon className="calendar-icon" />
       </p>
 
       <S.FlightContent>
-        <p className="take-off">
-          <FlightTakeoffIcon />
-          {`${from.icaoCode} | ${from.name}`}
-        </p>
-        <p className="landing">
-          {`${to.icaoCode} | ${to.name}`}
-          <FlightLandIcon />
-        </p>
+        <div className="flight-area">
+          <span className="green-icon">
+            <FlightTakeoffIcon />
+          </span>
+          <div>
+            <p className="bold">{from.icaoCode}</p>
+            <p className="text">{from.name}</p>
+          </div>
+        </div>
+
+        <div className="flight-area">
+          <span className="yellow-icon">
+            <FlightLandIcon />
+          </span>
+          <div>
+            <p className="bold">{to.icaoCode}</p>
+            <p className="text">{to.name}</p>
+          </div>
+        </div>
       </S.FlightContent>
     </S.DynamicContent>
   );

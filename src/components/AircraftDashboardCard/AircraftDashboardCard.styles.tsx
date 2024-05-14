@@ -69,11 +69,12 @@ export const DynamicContent = styled.div`
   svg {
     width: 18px;
     height: 18px;
-    fill: ${theme.purple};
+    fill: ${theme.purple2};
   }
 
   &.flex-col {
     flex-direction: column;
+    position: relative;
   }
 
   p {
@@ -88,10 +89,21 @@ export const DynamicContent = styled.div`
 
   .next-flight-title {
     display: flex;
+    width: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     font-weight: ${theme.fontWeight600};
     gap: 0.5rem;
+  }
+
+  .calendar-icon {
+    fill: #000;
+    opacity: 0.04;
+    width: 110px;
+    position: absolute;
+    right: 0;
+    height: 110px;
+    bottom: 10px;
   }
 `;
 
@@ -99,34 +111,45 @@ export const FlightContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding: 0.225rem;
   width: 100%;
 
-  .take-off {
-    display: flex;
-    gap: 0.5rem;
-    width: fit-content;
-    padding: 0.225rem;
-    border-radius: 0.225rem;
-    background-color: ${theme.green3};
-    font-weight: ${theme.fontWeight600};
-    align-self: flex-start;
-    svg {
-      fill: ${theme.green2};
-    }
+  border: 1px solid ${theme.grey6};
+  border-radius: 0.5rem;
+
+  svg {
+    fill: ${theme.lightGrey};
   }
 
-  .landing {
+  .flight-area {
     display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: 0.5rem;
-    width: fit-content;
-    padding: 0.225rem;
-    border-radius: 0.225rem;
-    background-color: ${theme.yellow3};
-    font-weight: ${theme.fontWeight600};
-    align-self: flex-end;
-    svg {
-      fill: ${theme.yellow2};
-    }
+  }
+
+  .text {
+    width: 100%;
+  }
+
+  .green-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: ${theme.green2};
+    width: 24px;
+    height: 24px;
+  }
+
+  .yellow-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: ${theme.yellow2};
+    width: 24px;
+    height: 24px;
   }
 `;
 

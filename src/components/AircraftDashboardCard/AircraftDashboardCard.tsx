@@ -6,7 +6,11 @@ import { NextFlight } from "./Components/NextFlight/NextFlight";
 import { TermsOfUse } from "./Components/TermsOfUse/TermsOfUse";
 import { mask } from "../../utils/mask";
 
-export const AircraftDashboardCard = ({ className, aircraft }: Props) => {
+export const AircraftDashboardCard = ({
+  className,
+  aircraft,
+  onOpenTerm,
+}: Props) => {
   return (
     <S.Container className={className}>
       <S.DataGrid>
@@ -26,19 +30,16 @@ export const AircraftDashboardCard = ({ className, aircraft }: Props) => {
           </div>
         </div>
       </S.DataGrid>
-      {aircraft.hasOpenningTerm && !aircraft.flightPlan && <NoFlight />}
-      {aircraft.hasOpenningTerm && aircraft.flightPlan && (
+      {aircraft.hasOpeningTerm && !aircraft.flightPlan && <NoFlight />}
+      {aircraft.hasOpeningTerm && aircraft.flightPlan && (
         <NextFlight
           date={aircraft.flightPlan.date}
           from={aircraft.flightPlan.from}
           to={aircraft.flightPlan.to}
         />
       )}
-      {!aircraft.hasOpenningTerm && (
-        <TermsOfUse
-          onCheck={console.log}
-          onOpenTerm={() => console.log("abrir")}
-        />
+      {!aircraft.hasOpeningTerm && (
+        <TermsOfUse onCheck={console.log} onOpenTerm={onOpenTerm} />
       )}
     </S.Container>
   );
@@ -47,4 +48,5 @@ export const AircraftDashboardCard = ({ className, aircraft }: Props) => {
 type Props = {
   className?: string;
   aircraft: IAircraft;
+  onOpenTerm: () => void;
 };

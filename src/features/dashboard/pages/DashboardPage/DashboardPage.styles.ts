@@ -39,3 +39,8 @@ export const DashboardHeader = styled.div`
     background-color: transparent;
   }
 `;
+
+export const CarouselWrapper = styled.div`
+  width: 100%;
+  height: fit-content;
+`;

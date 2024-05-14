@@ -101,6 +101,7 @@ export const OptionsArea = styled.div`
   overflow: visible;
   background-color: ${theme.lightGrey};
   padding: 20rem 1.5rem 2.5rem 1.5rem;
+  scroll-behavior: smooth;
 
   .bottom-spacer {
     height: 64px;

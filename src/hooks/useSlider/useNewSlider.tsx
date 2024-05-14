@@ -3,7 +3,7 @@
   https://github.com/bushblade/Full-Screen-Touch-Slider
 */
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { createRef, useRef } from "react";
 
 type ISliderProps = {

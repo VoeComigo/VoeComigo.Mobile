@@ -14,6 +14,7 @@ export const voeComigoTheme = {
   fontSize18: "1.125rem",
   fontSize22: "1.375rem",
   fontSize24: "1.5rem",
+  fontSize28: "1.75rem",
   fontSize32: "2rem",
   fontSize36: "2.25rem",
   //  Line height:
@@ -51,6 +52,7 @@ export const voeComigoTheme = {
   grey3: "#A6A6A6",
   grey4: "#BFBFBF",
   grey5: "#767171",
+  grey6: "#eaeaea",
   purple: "#00002E",
   purple2: "#363568",
   green: "#92D050",
