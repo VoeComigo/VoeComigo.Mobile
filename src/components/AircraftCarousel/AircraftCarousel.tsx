@@ -1,56 +1,37 @@
-import * as S from "./AircraftCarousel.styles";
 import { IAircraft } from "../AircraftCard/types";
 import { AircraftCards } from "../AircraftCard/AircraftCard";
-import { useEffect } from "react";
-import { useSlider, useSwipeContent } from "../../hooks";
 import { AircraftInviteCard } from "../AircraftInviteCard/AircraftInviteCard";
+import { Carousel } from "../Carousel/Carousel";
+import * as S from "./AircraftCarousel.styles";
 
 export const AircraftCarousel = ({
   aircraftData,
   cardTypes = "AIRCRAFT",
   refetchData,
 }: Props) => {
-  const { onTouchStart, onTouchMove, onTouchEnd, swipeDir, swipableRef } =
-    useSwipeContent<HTMLDivElement>({
-      swipeMode: "medium",
-      slideAmount: aircraftData.length,
-    });
-
-  const { offsetX, elementFullWidth, triggerSlider } = useSlider({
-    elementClassname: "aircraft-carousel",
-    slideAmount: aircraftData.length,
-    sliderType: "static",
-  });
-
-  useEffect(() => {
-    triggerSlider(swipeDir);
-  }, [swipeDir]);
-
   return (
-    <S.Content
-      className="aircraft-carousel"
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
-      ref={swipableRef}
-      $offsetX={offsetX}
-      $width={elementFullWidth}
-    >
-      {aircraftData.map((el) => {
-        return cardTypes === "AIRCRAFT" ? (
-          <AircraftCards
-            key={el.id}
-            aircraftData={el}
-            refetchData={refetchData}
-          />
-        ) : (
-          <AircraftInviteCard
-            key={el.id}
-            aircraftData={el}
-            refetchData={refetchData}
-          />
-        );
-      })}
+    <S.Content>
+      <Carousel
+        slidesAmount={aircraftData.length}
+        hasNavigationDots={false}
+        hasInfiniteScrolling={false}
+      >
+        {aircraftData.map((el) => {
+          return cardTypes === "AIRCRAFT" ? (
+            <AircraftCards
+              key={el.id}
+              aircraftData={el}
+              refetchData={refetchData}
+            />
+          ) : (
+            <AircraftInviteCard
+              key={el.id}
+              aircraftData={el}
+              refetchData={refetchData}
+            />
+          );
+        })}
+      </Carousel>
     </S.Content>
   );
 };

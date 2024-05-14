@@ -5,7 +5,7 @@ export const dashboardAircraftMock: IAircraft = {
   registration: "PX-XXX",
   model: {
     id: "",
-    description: "",
+    description: "A180",
     icaoType: "",
     requiredLicense: "",
     type: "",
@@ -34,10 +34,16 @@ export const dashboardAircraftMock: IAircraft = {
   seatsAmount: 0,
   maxCrewMembers: 0,
   totalHours: "100:25",
-  hasOpenningTerm: true,
+  hasOpenningTerm: false,
   flightPlan: {
     date: "2024-05-12",
-    from: {},
-    to: {},
+    from: {
+      icaoCode: "SBBH",
+      name: "Aeroporto da Pampulha",
+    },
+    to: {
+      icaoCode: "SBRJ",
+      name: "Aeroporto Santos Dummond",
+    },
   },
 };

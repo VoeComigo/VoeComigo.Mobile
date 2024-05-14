@@ -1,51 +1,17 @@
 import * as S from "./InformationContainer.styles";
-import { useEffect } from "react";
-import { useSlider, useSwipeContent } from "../../../hooks";
 import { useGenerateInformationSlides } from "./InformationContainer.utils";
-import { SliderDots } from "../..";
 import { IAircraftModel } from "../types";
+import { Carousel } from "../../Carousel/Carousel";
 
 export const InformationContainer = (containerProps: AircraftInfoProps) => {
   const { slidesArray } = useGenerateInformationSlides(containerProps);
 
-  const { onTouchStart, onTouchMove, onTouchEnd, swipeDir, swipableRef } =
-    useSwipeContent<HTMLDivElement>({
-      swipeMode: "smallest",
-      slideAmount: slidesArray.length,
-    });
-
-  const { offsetX, elementFullWidth, triggerSlider, sliderDotController } =
-    useSlider({
-      elementClassname: "swipable-information-container",
-      slideAmount: slidesArray.length,
-    });
-
-  useEffect(() => {
-    triggerSlider(swipeDir);
-  }, [swipeDir]);
-
   return (
-    <S.Container
-      ref={swipableRef}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
-    >
-      <S.InformationContainer
-        className="swipable-information-container"
-        $innerWidth={elementFullWidth}
-        $offset={offsetX}
-      >
+    <S.Container>
+      <Carousel slidesAmount={slidesArray.length} hasNavigationDots stopSwiping>
         {slidesArray.map((slide, i) => {
           return (
-            <div
-              key={`content-${i}`}
-              className={`content${
-                sliderDotController.highlighted === i
-                  ? " show-info"
-                  : " hide-info"
-              }`}
-            >
+            <div key={`content-${i}`} className="information-content">
               {slide.map((item) => {
                 return (
                   <div key={item.title}>
@@ -58,8 +24,7 @@ export const InformationContainer = (containerProps: AircraftInfoProps) => {
             </div>
           );
         })}
-      </S.InformationContainer>
-      <SliderDots {...sliderDotController} />
+      </Carousel>
     </S.Container>
   );
 };

@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactNode } from "react";
 import * as S from "./Card.styles";
 
 export const Card = ({ className, children }: Props) => {

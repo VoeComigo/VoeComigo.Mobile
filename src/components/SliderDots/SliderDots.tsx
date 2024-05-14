@@ -3,7 +3,7 @@ import * as S from "./SliderDots.styles";
 export const SliderDots = ({
   className,
   amount,
-  highlighted,
+  activeSlide,
   onClick,
 }: SliderProps) => {
   return (
@@ -12,7 +12,7 @@ export const SliderDots = ({
         return (
           <button
             key={`dot-${i}`}
-            className={`dot${highlighted === i ? " active" : ""}`}
+            className={`dot${activeSlide === i ? " active" : ""}`}
             onClick={() => onClick && onClick(i)}
           />
         );
@@ -22,8 +22,8 @@ export const SliderDots = ({
 };
 
 type SliderProps = {
-  className?: string;
   amount: number;
-  highlighted: number;
+  className?: string;
+  activeSlide?: number;
   onClick?: (e: number) => void;
 };

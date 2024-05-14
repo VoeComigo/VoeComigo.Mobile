@@ -1,0 +1,26 @@
+diff --git a/node_modules/react-slick/dist/react-slick.js b/node_modules/react-slick/dist/react-slick.js
+index 6141539..82d2608 100644
+--- a/node_modules/react-slick/dist/react-slick.js
++++ b/node_modules/react-slick/dist/react-slick.js
+@@ -1629,6 +1629,7 @@ var safePreventDefault = function safePreventDefault(event) {
+   var passiveEvents = ["onTouchStart", "onTouchMove", "onWheel"];
+   if (!passiveEvents.includes(event._reactName)) {
+     event.preventDefault();
++    event.stopPropagation();
+   }
+ };
+ var getOnDemandLazySlides = function getOnDemandLazySlides(spec) {
+diff --git a/node_modules/react-slick/lib/slider.js b/node_modules/react-slick/lib/slider.js
+index 24014e7..cd69bac 100644
+--- a/node_modules/react-slick/lib/slider.js
++++ b/node_modules/react-slick/lib/slider.js
+@@ -200,7 +200,8 @@ var Slider = exports["default"] = /*#__PURE__*/function (_React$Component) {
+             }));
+           }
+           newSlide.push( /*#__PURE__*/_react["default"].createElement("div", {
+-            key: 10 * i + j
++            key: 10 * i + j,
++            className: 'slick-wrapper'
+           }, row));
+         }
+         if (settings.variableWidth) {

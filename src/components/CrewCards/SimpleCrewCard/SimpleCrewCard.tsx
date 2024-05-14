@@ -3,26 +3,25 @@ import { Avatar } from "@mui/material";
 import { stringAvatar } from "../../../utils/stringAvatar";
 import { IAircraftPerson } from "../../../features/aircraft/hooks/useGetCrew";
 
-export const SimpleCrewCard = ({ crewMember }: Prop) => {
+export const SimpleCrewCard = ({ className, crewMember }: Props) => {
   if (!crewMember) return <></>;
   return (
-    <S.EnchancedCard>
-      <S.Container>
-        <Avatar
-          className="avatar"
-          {...stringAvatar(crewMember.person.name)}
-          src={crewMember.person.photo || ""}
-          alt={crewMember.person.name}
-        />
-        <div className="name-and-email">
-          <h1>{crewMember.person.name}</h1>
-          <p>{crewMember.role}</p>
-        </div>
-      </S.Container>
+    <S.EnchancedCard className={className}>
+      <Avatar
+        className="avatar"
+        {...stringAvatar(crewMember.person.name)}
+        src={crewMember.person.photo || ""}
+        alt={crewMember.person.name}
+      />
+      <div className="name-and-email">
+        <h1>{crewMember.person.name}</h1>
+        <p>{crewMember.role}</p>
+      </div>
     </S.EnchancedCard>
   );
 };
 
-type Prop = {
+type Props = {
+  className?: string;
   crewMember?: IAircraftPerson;
 };
