@@ -3,32 +3,19 @@
   https://github.com/bushblade/Full-Screen-Touch-Slider
 */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createRef, useRef } from "react";
 
 type ISliderProps = {
   slidesAmount?: number;
-  hasSliderController?: boolean;
 };
 
-export const useSliderV2 = ({
-  slidesAmount,
-  hasSliderController,
-}: ISliderProps) => {
+export const useSliderV2 = ({ slidesAmount }: ISliderProps) => {
   // Main component refs:
   const carouselRef = createRef<HTMLDivElement>();
   const slidesRef: React.MutableRefObject<HTMLDivElement | null>[] = [];
-  const controllerRef: React.MutableRefObject<HTMLButtonElement | null>[] = [];
 
-  //    Slider dots controller
-  if (hasSliderController) {
-    Array.from(Array(slidesAmount).keys()).forEach(() => {
-      const dot = useRef<HTMLButtonElement>(null);
-      controllerRef.push(dot);
-    });
-    // Highlight the first slide:
-    controllerRef[0].current && onActivate(controllerRef[0].current);
-  }
+  const [activeSlide, setActiveSlide] = useState<number>(0);
 
   //    Prepare the refs array to use in the slider:
   Array.from(Array(slidesAmount).keys()).forEach(() => {
@@ -79,8 +66,7 @@ export const useSliderV2 = ({
 
     if (movedBy > 100 && currentIndex > 0) currentIndex -= 1;
 
-    setPositionByIndex();
-    onChangeSliderDot(currentIndex);
+    setPositionByIndex(currentIndex);
   }
 
   function touchMove(ev: MouseEvent | TouchEvent) {
@@ -106,41 +92,24 @@ export const useSliderV2 = ({
       carouselRef.current.style.transform = `translateX(${currentTranslate}px)`;
   }
 
-  function setPositionByIndex() {
-    currentTranslate =
-      currentIndex * -window.innerWidth +
-      (currentIndex > 0 ? 32 * currentIndex : 0);
+  function setPositionByIndex(idx: number) {
+    currentTranslate = idx * -window.innerWidth + (idx > 0 ? 32 * idx : 0);
     prevTranslate = currentTranslate;
     setSliderPosition();
   }
 
   //  SLIDER DOT HANDLING AREA:
-  function onActivate(el: HTMLButtonElement) {
-    el.classList.add("active");
-  }
-  function onDeactivate(el: HTMLButtonElement) {
-    el.classList.remove("active");
-  }
-  function onChangeSliderDot(e: number) {
-    if (hasSliderController)
-      controllerRef.forEach((dot, i) => {
-        if (i === e) dot.current && onActivate(dot.current);
-        else dot.current && onDeactivate(dot.current);
-      });
-  }
   function onClickSliderDot(e: number) {
-    if (controllerRef) {
-      currentIndex = e;
-      setPositionByIndex();
-      onChangeSliderDot(e);
-    }
+    currentIndex = e;
+    setActiveSlide(e);
+    setPositionByIndex(e);
   }
 
   return {
     carouselRef,
     slidesRef,
     sliderController: {
-      sliderDotRef: controllerRef,
+      activeSlide,
       amount: slidesAmount || 0,
       onClick: onClickSliderDot,
     },
