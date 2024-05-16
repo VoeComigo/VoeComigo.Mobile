@@ -15,7 +15,6 @@ export type RouteMapper =
 
 export const MainMenu = ({ actualRoute, mainButtonProps }: Props) => {
   const navigate = useNavigate();
-
   const handleNavigation = (route: RouteMapper) => {
     navigate(`/${route}`);
   };
@@ -78,7 +77,7 @@ export const MainMenu = ({ actualRoute, mainButtonProps }: Props) => {
         type="button"
         className="floating-button"
         onClick={() =>
-          mainButtonProps ? mainButtonProps.onClick() : undefined
+          mainButtonProps?.onClick ? mainButtonProps.onClick() : undefined
         }
       >
         {mainButtonProps ? (
@@ -97,6 +96,6 @@ type Props = {
 };
 
 export type MainButtonProps = {
-  icon: JSX.Element;
-  onClick: () => void;
+  icon?: JSX.Element;
+  onClick?: () => void;
 };

@@ -14,6 +14,7 @@ import { useGetAircraft } from "../../../aircraft/hooks";
 import { Carousel } from "../../../../components/Carousel/Carousel";
 import { Modal, useModalController } from "../../../../hooks";
 import { TermsOfUseModal } from "../../../../components/TermsOfUseModal/TermsOfUseModal";
+import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 
 export const DashboardPage = () => {
   //  Navigation handling:
@@ -93,6 +94,13 @@ export const DashboardPage = () => {
             onClick={() => navigate("/my-profile")}
           />
         ),
+      }}
+      mainButton={{
+        icon: <AutoStoriesOutlinedIcon />,
+        onClick: () =>
+          aircraftData && !aircraftData[selectedIdx].hasOpeningTerm
+            ? toggleModal()
+            : console.log("LOGBOOK"),
       }}
     >
       <S.Container>

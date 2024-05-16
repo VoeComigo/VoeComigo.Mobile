@@ -8,6 +8,9 @@ import { useGetCrew } from "../../hooks/useGetCrew";
 import { mask } from "../../../../utils/mask";
 import { EmptyCard } from "../../../../components/EmptyCard/EmptyCard";
 import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/PageEventsContext";
+import AddIcon from "@mui/icons-material/Add";
+import { Modal, useModalController } from "../../../../hooks";
+import { InvitationModal } from "../../../../components/InvitationModal/InvitationModal";
 
 export const AircraftCrewPage = () => {
   let { id } = useParams<string>();
@@ -31,11 +34,18 @@ export const AircraftCrewPage = () => {
   //  Callback for the cards:
   const [index, setIndex] = useState<number>(0);
 
+  //  Modal controller:
+  const { toggleModal, controller } = useModalController();
+
   return (
     <PageContainer
       actualRoute="aircraft-crew"
       header={{
         title: `Tripulação | ${mask("registration", data?.registration || "")}`,
+      }}
+      mainButton={{
+        icon: <AddIcon />,
+        onClick: toggleModal,
       }}
     >
       <S.Container>
@@ -60,6 +70,9 @@ export const AircraftCrewPage = () => {
             }
           />
         )}
+        <Modal {...controller}>
+          <InvitationModal />
+        </Modal>
       </S.Container>
     </PageContainer>
   );
