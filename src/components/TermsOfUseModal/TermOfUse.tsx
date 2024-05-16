@@ -1,14 +1,14 @@
-export const TermOfUse = ({ className }: Props) => {
+import { mask } from "../../utils/mask";
+
+export const TermOfUse = ({ className, username, registration }: Props) => {
   return (
     <span className={className}>
-      <b>Termo de Aceite para Utilização do Diário de Bordo Digital</b>
       <br></br>
-      <br></br>
-      Eu, [Nome Completo], doravante referido como "Usuário", reconheço e
-      concordo com os termos e condições abaixo descritos para a utilização do
-      Diário de Bordo Digital fornecido pela Voe Comigo adiante denominada
-      "Empresa", em minha aeronave com número de registro [Número de Registro].
-      <br></br>
+      Eu, {username}, doravante referido como "Usuário", reconheço e concordo
+      com os termos e condições abaixo descritos para a utilização do Diário de
+      Bordo Digital fornecido pela Voe Comigo adiante denominada "Empresa", em
+      minha aeronave com número de registro {mask("registration", registration)}
+      .<br></br>
       <br></br>
       <b>1. Objetivo do Diário de Bordo Digital:</b>
       <br></br>O Diário de Bordo Digital é uma aplicação desenvolvida para a
@@ -53,10 +53,13 @@ export const TermOfUse = ({ className }: Props) => {
       termos e condições. O não cumprimento das disposições estabelecidas neste
       documento pode resultar na suspensão ou rescisão do acesso ao Diário de
       Bordo Digital.
+      <br></br>
     </span>
   );
 };
 
 type Props = {
   className?: string;
+  username: string;
+  registration: string;
 };

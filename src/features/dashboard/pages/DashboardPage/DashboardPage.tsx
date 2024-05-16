@@ -4,7 +4,11 @@ import { useEffect, useState, useMemo } from "react";
 import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/PageEventsContext";
 import { useGetProfile } from "../../hooks/useGetProfile";
 import { useNavigate } from "react-router-dom";
-import { DashboardHeader } from "./DashboardPage.utils";
+import {
+  DashboardHeader,
+  IAircrafTermsChange,
+  termsListController,
+} from "./DashboardPage.utils";
 import { AircraftDashboardCard } from "../../../../components";
 import { useGetAircraft } from "../../../aircraft/hooks";
 import { Carousel } from "../../../../components/Carousel/Carousel";
@@ -51,11 +55,31 @@ export const DashboardPage = () => {
   //  If user got some registration pendencies, redirect:
   if (data && !data.completeRegistration) return navigate("/my-profile");
 
-  //  Selected aircraft:
-  const [selectedIdx, setSelectedIdx] = useState<number>(0);
-
   //  Modal controller:
   const { toggleModal, controller } = useModalController();
+
+  //  States:
+  const [selectedIdx, setSelectedIdx] = useState<number>(0); //  Selected aircraft
+  const [termsList, setTermsList] = useState<IAircrafTermsChange[]>([]);
+  const [modalPhase, setModalPhase] = useState<"one" | "two">("one");
+
+  //  Control modal appearance by clicking on the term, and also control the phase based on the checkbox:
+  function onChangePhase(e: IAircrafTermsChange) {
+    const aux = termsListController(termsList, e);
+    setTermsList([...aux]);
+    setModalPhase(e.accepted ? "two" : "one");
+    return e.openModal && toggleModal();
+  }
+
+  //  Handle aircraft change:
+  function onChangeAircraft(index: number) {
+    setSelectedIdx(index);
+    if (aircraftData) {
+      const term = termsList.find((item) => item.id === aircraftData[index].id);
+      term && setModalPhase(term.accepted ? "two" : "one");
+      return;
+    }
+  }
 
   return (
     <PageContainer
@@ -77,13 +101,13 @@ export const DashboardPage = () => {
             <Carousel
               slidesAmount={aircraftData?.length || 0}
               hasNavigationDots={false}
-              onChange={setSelectedIdx}
+              onChange={onChangeAircraft}
             >
               {aircraftData.map((el) => (
                 <AircraftDashboardCard
                   key={el.id}
                   aircraft={el}
-                  onOpenTerm={toggleModal}
+                  onTermInteraction={onChangePhase}
                 />
               ))}
             </Carousel>
@@ -91,7 +115,15 @@ export const DashboardPage = () => {
         )}
         <Modal {...controller}>
           <TermsOfUseModal
-            aircraftID={(aircraftData && aircraftData[selectedIdx].id) || "0"}
+            aircraftID={(aircraftData && aircraftData[selectedIdx].id) || ""}
+            username={(data && data.name) || ""}
+            registration={
+              (aircraftData && aircraftData[selectedIdx].registration) || ""
+            }
+            termPhase={modalPhase}
+            onPhaseChange={setModalPhase}
+            refetch={getAircraft}
+            closeModal={toggleModal}
           />
         </Modal>
       </S.Container>

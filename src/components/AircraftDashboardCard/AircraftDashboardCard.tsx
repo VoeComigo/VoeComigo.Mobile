@@ -5,12 +5,30 @@ import { IAircraft } from "../AircraftCard/types";
 import { NextFlight } from "./Components/NextFlight/NextFlight";
 import { TermsOfUse } from "./Components/TermsOfUse/TermsOfUse";
 import { mask } from "../../utils/mask";
+import { IAircrafTermsChange } from "../../features/dashboard/pages/DashboardPage/DashboardPage.utils";
+import { useState } from "react";
 
 export const AircraftDashboardCard = ({
   className,
   aircraft,
-  onOpenTerm,
+  onTermInteraction,
 }: Props) => {
+  const [accepted, setAccepted] = useState<boolean>(false);
+  function handleTermsOfUse(e?: boolean) {
+    if (e !== undefined) {
+      setAccepted(e);
+      return onTermInteraction({
+        id: aircraft.id,
+        openModal: false,
+        accepted: e,
+      });
+    }
+    return onTermInteraction({
+      id: aircraft.id,
+      openModal: true,
+      accepted: accepted,
+    });
+  }
   return (
     <S.Container className={className}>
       <S.DataGrid>
@@ -39,7 +57,10 @@ export const AircraftDashboardCard = ({
         />
       )}
       {!aircraft.hasOpeningTerm && (
-        <TermsOfUse onCheck={console.log} onOpenTerm={onOpenTerm} />
+        <TermsOfUse
+          onOpenTerm={() => handleTermsOfUse()}
+          onCheck={handleTermsOfUse}
+        />
       )}
     </S.Container>
   );
@@ -48,5 +69,5 @@ export const AircraftDashboardCard = ({
 type Props = {
   className?: string;
   aircraft: IAircraft;
-  onOpenTerm: () => void;
+  onTermInteraction: (e: IAircrafTermsChange) => void;
 };
