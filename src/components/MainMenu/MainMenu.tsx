@@ -11,7 +11,8 @@ export type RouteMapper =
   | "aircraft"
   | "aircraft-crew"
   | "weather"
-  | "plan";
+  | "plan"
+  | "logbook";
 
 export const MainMenu = ({ actualRoute, mainButtonProps }: Props) => {
   const navigate = useNavigate();

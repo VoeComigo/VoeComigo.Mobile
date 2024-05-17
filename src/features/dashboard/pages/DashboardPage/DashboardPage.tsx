@@ -82,6 +82,16 @@ export const DashboardPage = () => {
     }
   }
 
+  //  Main button click handler:
+  function onClickMainButton() {
+    if (aircraftData) {
+      const aircraft = aircraftData[selectedIdx];
+      if (!aircraftData[selectedIdx].hasOpeningTerm) return toggleModal();
+      return navigate(`/logbook/${aircraft.id}/${aircraft.registration}`);
+    }
+    return;
+  }
+
   return (
     <PageContainer
       actualRoute="dashboard"
@@ -97,10 +107,7 @@ export const DashboardPage = () => {
       }}
       mainButton={{
         icon: <AutoStoriesOutlinedIcon />,
-        onClick: () =>
-          aircraftData && !aircraftData[selectedIdx].hasOpeningTerm
-            ? toggleModal()
-            : console.log("LOGBOOK"),
+        onClick: onClickMainButton,
       }}
     >
       <S.Container>

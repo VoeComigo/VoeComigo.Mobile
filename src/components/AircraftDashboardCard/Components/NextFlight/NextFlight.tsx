@@ -20,7 +20,7 @@ export const NextFlight = ({ date, from, to }: props) => {
           </span>
           <div>
             <p className="bold">{from.icaoCode}</p>
-            <p className="text">{from.name}</p>
+            <p className="text">{from.airportName}</p>
           </div>
         </div>
 
@@ -30,7 +30,7 @@ export const NextFlight = ({ date, from, to }: props) => {
           </span>
           <div>
             <p className="bold">{to.icaoCode}</p>
-            <p className="text">{to.name}</p>
+            <p className="text">{to.airportName}</p>
           </div>
         </div>
       </S.FlightContent>
