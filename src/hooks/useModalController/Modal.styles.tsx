@@ -29,7 +29,7 @@ export const Background = styled.div`
 `;
 
 type Props = {
-  $contentStyle: "normal" | "ticket";
+  $contentStyle: "normal" | "ticket" | "bottom";
 };
 
 export const Content = styled.div<Props>`
@@ -65,6 +65,45 @@ export const Content = styled.div<Props>`
         border: 2px dashed #c8c8c8;
     }
   `}
+
+  .close-region {
+    width: 100%;
+    justify-content: end;
+    display: flex;
+
+    .close-button {
+      width: 24px;
+      height: 24px;
+      border-radius: 100%;
+      background-color: ${theme.lightGrey};
+      transition: 200ms all;
+      cursor: pointer;
+
+      &:hover {
+        filter: brightness(0.9);
+      }
+      &:active {
+        filter: brightness(0.85);
+      }
+    }
+  }
+`;
+
+export const BottomModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+
+  background-color: ${theme.lightGrey};
+  border-radius: 1rem 1rem 0 0;
+  overflow: hidden;
+
+  padding: 1rem;
 
   .close-region {
     width: 100%;

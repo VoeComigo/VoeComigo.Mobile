@@ -11,26 +11,43 @@ export const Modal = ({
 }: Props) => {
   return (
     <S.Background className={isOpen ? "show" : undefined}>
-      <S.Content $contentStyle={contentStyle} className={className}>
-        {hasCloseButton && (
-          <div className="close-region">
-            <button
-              className="close-button"
-              onClick={() => openCallback(!isOpen)}
-            >
-              <CloseOutlinedIcon />
-            </button>
-          </div>
-        )}
-        {children}
-      </S.Content>
+      {contentStyle !== "bottom" && (
+        <S.Content $contentStyle={contentStyle} className={className}>
+          {hasCloseButton && (
+            <div className="close-region">
+              <button
+                className="close-button"
+                onClick={() => openCallback(!isOpen)}
+              >
+                <CloseOutlinedIcon />
+              </button>
+            </div>
+          )}
+          {children}
+        </S.Content>
+      )}
+      {contentStyle === "bottom" && (
+        <S.BottomModalContent className={className}>
+          {hasCloseButton && (
+            <div className="close-region">
+              <button
+                className="close-button"
+                onClick={() => openCallback(!isOpen)}
+              >
+                <CloseOutlinedIcon />
+              </button>
+            </div>
+          )}
+          {children}
+        </S.BottomModalContent>
+      )}
     </S.Background>
   );
 };
 
 type Props = {
   className?: string;
-  contentStyle?: "normal" | "ticket";
+  contentStyle?: "normal" | "ticket" | "bottom";
   children: JSX.Element;
   isOpen: boolean;
   openCallback: (e: boolean) => void;

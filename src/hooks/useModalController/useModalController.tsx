@@ -4,12 +4,16 @@ export const useModalController = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleModal = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((item) => !item);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
   };
 
   const openCallback = (e: boolean) => {
     setIsOpen(e);
   };
 
-  return { toggleModal, controller: { openCallback, isOpen } };
+  return { toggleModal, closeModal, controller: { openCallback, isOpen } };
 };
