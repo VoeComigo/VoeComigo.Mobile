@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Modal, useModalController } from "../../hooks";
+import { useLocation } from "react-router-dom";
 
 type IModalStyles = "normal" | "ticket" | "bottom";
 type IModalContextTypes = {
@@ -32,9 +33,11 @@ export const ModalContextProvider = ({
   const [modalType, setModalType] = useState<IModalStyles>("normal");
   const [modalContent, setModalContent] = useState<JSX.Element>(<></>);
 
+  //  Tracking page change:
+  let location = useLocation();
   useEffect(() => {
     closeModal();
-  }, [modalType, modalContent]);
+  }, [location]);
 
   return (
     <ModalContext.Provider
