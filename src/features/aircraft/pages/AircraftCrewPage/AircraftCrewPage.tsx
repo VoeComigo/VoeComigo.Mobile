@@ -9,8 +9,8 @@ import { mask } from "../../../../utils/mask";
 import { EmptyCard } from "../../../../components/EmptyCard/EmptyCard";
 import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/PageEventsContext";
 import AddIcon from "@mui/icons-material/Add";
-import { Modal, useModalController } from "../../../../hooks";
 import { InvitationModal } from "../../../../components/InvitationModal/InvitationModal";
+import { useModalContext } from "../../../../contexts/ModalContext/ModalContext";
 
 export const AircraftCrewPage = () => {
   let { id } = useParams<string>();
@@ -34,8 +34,16 @@ export const AircraftCrewPage = () => {
   //  Callback for the cards:
   const [index, setIndex] = useState<number>(0);
 
-  //  Modal controller:
-  const { toggleModal, controller } = useModalController();
+  // Modal context:
+  const { toggleModal, setModalStyle, setModalContent } = useModalContext();
+  useEffect(() => {
+    setModalStyle("normal");
+  }, []);
+
+  function onInviteClick() {
+    setModalContent(<InvitationModal />);
+    toggleModal();
+  }
 
   return (
     <PageContainer
@@ -45,7 +53,7 @@ export const AircraftCrewPage = () => {
       }}
       mainButton={{
         icon: <AddIcon />,
-        onClick: toggleModal,
+        onClick: onInviteClick,
       }}
     >
       <S.Container>
@@ -70,9 +78,6 @@ export const AircraftCrewPage = () => {
             }
           />
         )}
-        <Modal {...controller}>
-          <InvitationModal />
-        </Modal>
       </S.Container>
     </PageContainer>
   );

@@ -6,8 +6,8 @@ import { useEffect } from "react";
 import { EmptyCard } from "../../../../components/EmptyCard/EmptyCard";
 import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/PageEventsContext";
 import AddIcon from "@mui/icons-material/Add";
-import { Modal, useModalController } from "../../../../hooks";
 import { AircraftModal } from "../../../../components/AircraftModal/AircraftModal";
+import { useModalContext } from "../../../../contexts/ModalContext/ModalContext";
 
 export const AircraftPage = () => {
   //  Loading and error handling:
@@ -26,8 +26,16 @@ export const AircraftPage = () => {
     if (!loading) return onChangeEvent("done");
   }, [loading]);
 
-  //  Modal controller:
-  const { toggleModal, controller } = useModalController();
+  // Modal context:
+  const { toggleModal, setModalStyle, setModalContent } = useModalContext();
+  useEffect(() => {
+    setModalStyle("ticket");
+  }, []);
+
+  function onMainButtonClick() {
+    setModalContent(<AircraftModal />);
+    toggleModal();
+  }
 
   return (
     <PageContainer
@@ -37,7 +45,7 @@ export const AircraftPage = () => {
       }}
       mainButton={{
         icon: <AddIcon />,
-        onClick: toggleModal,
+        onClick: onMainButtonClick,
       }}
     >
       <S.Container>
@@ -53,9 +61,6 @@ export const AircraftPage = () => {
             }
           />
         )}
-        <Modal contentStyle="ticket" {...controller}>
-          <AircraftModal />
-        </Modal>
       </S.Container>
     </PageContainer>
   );

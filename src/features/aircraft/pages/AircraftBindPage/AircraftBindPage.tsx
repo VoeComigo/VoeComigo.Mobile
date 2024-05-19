@@ -6,8 +6,8 @@ import { useEffect } from "react";
 import { useGetAircraftInvitation } from "../../hooks/useGetAircraftInvitation";
 import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/PageEventsContext";
 import AddIcon from "@mui/icons-material/Add";
-import { Modal, useModalController } from "../../../../hooks";
 import { AircraftModal } from "../../../../components/AircraftModal/AircraftModal";
+import { useModalContext } from "../../../../contexts/ModalContext/ModalContext";
 
 export const AircraftBindPage = () => {
   //  Loading and error handling:
@@ -27,8 +27,12 @@ export const AircraftBindPage = () => {
     if (!loading) return onChangeEvent("done");
   }, [loading]);
 
-  //  Modal controller:
-  const { toggleModal, controller } = useModalController();
+  // Modal context:
+  const { toggleModal, setModalStyle, setModalContent } = useModalContext();
+  useEffect(() => {
+    setModalStyle("ticket");
+    setModalContent(<AircraftModal />);
+  }, []);
 
   return (
     <PageContainer
@@ -56,9 +60,6 @@ export const AircraftBindPage = () => {
             }
           />
         )}
-        <Modal contentStyle="ticket" {...controller}>
-          <AircraftModal />
-        </Modal>
       </S.Container>
     </PageContainer>
   );

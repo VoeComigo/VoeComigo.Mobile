@@ -4,13 +4,13 @@ import { useLocation } from "react-router-dom";
 
 type IModalStyles = "normal" | "ticket" | "bottom";
 type IModalContextTypes = {
-  onChangeStyle: (e: IModalStyles) => void;
+  setModalStyle: (e: IModalStyles) => void;
   setModalContent: (e: JSX.Element) => void;
   toggleModal: () => void;
 };
 
 const ModalContext = createContext<IModalContextTypes>({
-  onChangeStyle: function () {},
+  setModalStyle: function () {},
   setModalContent: function () {},
   toggleModal: function () {},
 });
@@ -43,7 +43,7 @@ export const ModalContextProvider = ({
     <ModalContext.Provider
       value={{
         toggleModal: toggleModal,
-        onChangeStyle: setModalType,
+        setModalStyle: setModalType,
         setModalContent: setModalContent,
       }}
     >
@@ -54,3 +54,11 @@ export const ModalContextProvider = ({
     </ModalContext.Provider>
   );
 };
+
+//  USAGE EXAMPLE:
+// Modal context:
+/*  const {toggleModal, setModalStyle, setModalContent} = useModalContext()
+ useEffect(() => {
+  setModalStyle('normal');
+  setModalContent(<></>)
+ }, []) */

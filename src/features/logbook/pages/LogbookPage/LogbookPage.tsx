@@ -5,7 +5,6 @@ import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/Pa
 import { useNavigate, useParams } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import { Carousel } from "../../../../components/Carousel/Carousel";
-import { Modal, useModalController } from "../../../../hooks";
 import { mask } from "../../../../utils/mask";
 import { LogbookSimpleCard } from "../../../../components/LogbookSimpleCard/LogbookSimpleCard";
 import { Chip } from "../../../../components/Chip/Chip";
@@ -38,9 +37,6 @@ export const LogbookPage = () => {
   }, [dataLoading]);
  */
 
-  //  Modal controller:
-  const { toggleModal, controller } = useModalController();
-
   return (
     <PageContainer
       actualRoute="logbook"
@@ -70,9 +66,6 @@ export const LogbookPage = () => {
           }}
           onClick={console.log}
         />
-        <Modal {...controller}>
-          <span></span>
-        </Modal>
       </S.Container>
     </PageContainer>
   );

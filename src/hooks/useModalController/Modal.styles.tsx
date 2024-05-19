@@ -6,10 +6,10 @@ export const Background = styled.div`
   align-items: center;
   justify-content: center;
 
-  left: 0;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
+  left: 0;
   bottom: 0;
   background-color: #0000007a;
   backdrop-filter: blur(5px);

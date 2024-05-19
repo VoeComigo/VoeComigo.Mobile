@@ -12,9 +12,9 @@ import {
 import { AircraftDashboardCard } from "../../../../components";
 import { useGetAircraft } from "../../../aircraft/hooks";
 import { Carousel } from "../../../../components/Carousel/Carousel";
-import { Modal, useModalController } from "../../../../hooks";
 import { TermsOfUseModal } from "../../../../components/TermsOfUseModal/TermsOfUseModal";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
+import { useModalContext } from "../../../../contexts/ModalContext/ModalContext";
 
 export const DashboardPage = () => {
   //  Navigation handling:
@@ -56,13 +56,33 @@ export const DashboardPage = () => {
   //  If user got some registration pendencies, redirect:
   if (data && !data.completeRegistration) return navigate("/my-profile");
 
-  //  Modal controller:
-  const { toggleModal, controller } = useModalController();
-
   //  States:
   const [selectedIdx, setSelectedIdx] = useState<number>(0); //  Selected aircraft
   const [termsList, setTermsList] = useState<IAircrafTermsChange[]>([]);
   const [modalPhase, setModalPhase] = useState<"one" | "two">("one");
+
+  // Modal context:
+  const { toggleModal, setModalStyle, setModalContent } = useModalContext();
+  useEffect(() => {
+    setModalStyle("normal");
+  }, []);
+
+  // Modal content handler:
+  useEffect(() => {
+    setModalContent(
+      <TermsOfUseModal
+        aircraftID={(aircraftData && aircraftData[selectedIdx].id) || ""}
+        username={(data && data.name) || ""}
+        registration={
+          (aircraftData && aircraftData[selectedIdx].registration) || ""
+        }
+        termPhase={modalPhase}
+        onPhaseChange={setModalPhase}
+        refetch={getAircraft}
+        closeModal={toggleModal}
+      />
+    );
+  }, [selectedIdx, modalPhase]);
 
   //  Control modal appearance by clicking on the term, and also control the phase based on the checkbox:
   function onChangePhase(e: IAircrafTermsChange) {
@@ -128,19 +148,6 @@ export const DashboardPage = () => {
             </Carousel>
           </S.CarouselWrapper>
         )}
-        <Modal {...controller}>
-          <TermsOfUseModal
-            aircraftID={(aircraftData && aircraftData[selectedIdx].id) || ""}
-            username={(data && data.name) || ""}
-            registration={
-              (aircraftData && aircraftData[selectedIdx].registration) || ""
-            }
-            termPhase={modalPhase}
-            onPhaseChange={setModalPhase}
-            refetch={getAircraft}
-            closeModal={toggleModal}
-          />
-        </Modal>
       </S.Container>
     </PageContainer>
   );

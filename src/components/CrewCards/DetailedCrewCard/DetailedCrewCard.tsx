@@ -10,8 +10,9 @@ import { IAircraftPerson } from "../../../features/aircraft/hooks/useGetCrew";
 import { useDeleteCrewMember } from "../../../features/aircraft/hooks/useDeleteCrewMember";
 import { useNotificationContext } from "../../../contexts";
 import { NOTIFICATION_TYPES } from "./DetailedCrewCard.utils";
-import { useState } from "react";
-import { Modal, RemoveModal, useModalController } from "../../../hooks";
+import { useEffect, useState } from "react";
+import { RemoveModal } from "../../../hooks";
+import { useModalContext } from "../../../contexts/ModalContext/ModalContext";
 
 export const DetailedCrewCard = ({
   aircraftID,
@@ -31,8 +32,27 @@ export const DetailedCrewCard = ({
   // Notification Context:
   const { createNotification } = useNotificationContext();
 
-  //  Go back modal controller:
-  const { toggleModal, controller } = useModalController();
+  // Modal context:
+  const { toggleModal, setModalStyle, setModalContent } = useModalContext();
+  useEffect(() => {
+    setModalStyle("normal");
+  }, []);
+
+  //  Update modal content:
+  useEffect(() => {
+    setModalContent(
+      <RemoveModal
+        labels={{
+          title: `Tem certeza que deseja remover o tripulante: ${removeMember?.name}?`,
+          primaryLabel: "Sim, vou remove-lo",
+          secondaryLabel: "Não, mudei de idéia",
+        }}
+        options={{ disablePrimary: loading }}
+        onPrimaryClick={() => handleDelete(removeMember!.id)}
+        onSecondaryClick={toggleModal}
+      />
+    );
+  }, [removeMember]);
 
   //  Handle member deletion:
   function handleDelete(id: string) {
@@ -64,18 +84,6 @@ export const DetailedCrewCard = ({
   } else {
     return (
       <>
-        <Modal {...controller} contentStyle="normal">
-          <RemoveModal
-            labels={{
-              title: `Tem certeza que deseja remover o tripulante: ${removeMember?.name}?`,
-              primaryLabel: "Sim, vou remove-lo",
-              secondaryLabel: "Não, mudei de idéia",
-            }}
-            options={{ disablePrimary: loading }}
-            onPrimaryClick={() => handleDelete(removeMember!.id)}
-            onSecondaryClick={toggleModal}
-          />
-        </Modal>
         <S.EnchancedCard>
           <S.Container>
             <div className="avatar-area">
