@@ -16,8 +16,12 @@ const ModalContext = createContext<IModalContextTypes>({
 });
 
 // Hook that export the modal context:
-export const useModalContext = () => {
-  return useContext(ModalContext);
+export const useModalContext = (modalStyle: "normal" | "ticket" | "bottom") => {
+  const context = useContext(ModalContext);
+  useEffect(() => {
+    context.setModalStyle(modalStyle);
+  }, []);
+  return context;
 };
 
 // Actual context:

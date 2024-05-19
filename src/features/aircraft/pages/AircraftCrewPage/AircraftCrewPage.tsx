@@ -35,10 +35,7 @@ export const AircraftCrewPage = () => {
   const [index, setIndex] = useState<number>(0);
 
   // Modal context:
-  const { toggleModal, setModalStyle, setModalContent } = useModalContext();
-  useEffect(() => {
-    setModalStyle("normal");
-  }, []);
+  const { toggleModal, setModalContent } = useModalContext("normal");
 
   function onInviteClick() {
     setModalContent(<InvitationModal />);

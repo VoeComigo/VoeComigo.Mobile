@@ -44,9 +44,8 @@ export const DialogGenerator = ({
   }
 
   // Modal context:
-  const { toggleModal, setModalStyle, setModalContent } = useModalContext();
+  const { toggleModal, setModalContent } = useModalContext("normal");
   useEffect(() => {
-    setModalStyle("normal");
     setModalContent(
       <RemoveModal
         labels={{

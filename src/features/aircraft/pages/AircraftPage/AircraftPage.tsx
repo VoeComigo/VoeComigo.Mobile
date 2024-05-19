@@ -27,10 +27,7 @@ export const AircraftPage = () => {
   }, [loading]);
 
   // Modal context:
-  const { toggleModal, setModalStyle, setModalContent } = useModalContext();
-  useEffect(() => {
-    setModalStyle("ticket");
-  }, []);
+  const { toggleModal, setModalContent } = useModalContext("ticket");
 
   function onMainButtonClick() {
     setModalContent(<AircraftModal />);

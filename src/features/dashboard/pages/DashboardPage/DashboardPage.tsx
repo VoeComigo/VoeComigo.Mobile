@@ -62,10 +62,7 @@ export const DashboardPage = () => {
   const [modalPhase, setModalPhase] = useState<"one" | "two">("one");
 
   // Modal context:
-  const { toggleModal, setModalStyle, setModalContent } = useModalContext();
-  useEffect(() => {
-    setModalStyle("normal");
-  }, []);
+  const { toggleModal, setModalContent } = useModalContext("normal");
 
   // Modal content handler:
   useEffect(() => {

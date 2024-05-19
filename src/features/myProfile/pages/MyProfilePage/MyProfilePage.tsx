@@ -64,10 +64,7 @@ export const MyProfilePage = () => {
   const { handleSignOut } = useSignOut();
 
   // Modal context:
-  const { toggleModal, setModalStyle, setModalContent } = useModalContext();
-  useEffect(() => {
-    setModalStyle("bottom");
-  }, []);
+  const { toggleModal, setModalContent } = useModalContext("bottom");
 
   useEffect(() => {
     getProfile();
@@ -133,7 +130,7 @@ export const MyProfilePage = () => {
         </div>
       </S.ModalContent>
     );
-  }, [updateType]);
+  }, [updateType, inputValue]);
 
   async function handleUpdate() {
     try {

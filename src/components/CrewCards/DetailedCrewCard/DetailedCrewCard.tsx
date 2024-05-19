@@ -33,10 +33,8 @@ export const DetailedCrewCard = ({
   const { createNotification } = useNotificationContext();
 
   // Modal context:
-  const { toggleModal, setModalStyle, setModalContent } = useModalContext();
-  useEffect(() => {
-    setModalStyle("normal");
-  }, []);
+  const { toggleModal, setModalStyle, setModalContent } =
+    useModalContext("normal");
 
   //  Update modal content:
   useEffect(() => {

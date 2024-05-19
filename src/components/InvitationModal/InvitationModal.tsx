@@ -125,6 +125,7 @@ export const InvitationModal = () => {
           size="small"
           value={input}
           mask={getInputMask()}
+          placeholderchar={searchType === "EMAIL" ? " " : "_"}
           onChange={(e) => setInput(e.target.value)}
         />
 
