@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { Modal, useModalController } from "../../hooks";
 import { useLocation } from "react-router-dom";
 
@@ -39,7 +45,7 @@ export const ModalContextProvider = ({
 
   //  Tracking page change:
   let location = useLocation();
-  useEffect(() => {
+  useLayoutEffect(() => {
     closeModal();
   }, [location]);
 
