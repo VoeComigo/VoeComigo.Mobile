@@ -10,6 +10,7 @@ import { LogbookSimpleCard } from "../../../../components/LogbookSimpleCard/Logb
 import { Chip } from "../../../../components/Chip/Chip";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { voeComigoTheme as theme } from "../../../../theme/globalTheme";
+import { useGetLogbook } from "../../hooks";
 
 export const LogbookPage = () => {
   const { aircraftID, registration } = useParams<{
@@ -23,19 +24,17 @@ export const LogbookPage = () => {
   //  Loading and error handling:
   const { onChangeEvent } = usePageEventsHandling();
 
-  ///  Data fetching:
-  /* const { getProfile, data, loading, error } = useGetProfile(); */
+  //  Data fetching:
+  const { getLogbook, data, loading, error } = useGetLogbook(aircraftID || "");
+  useEffect(() => {
+    getLogbook();
+  }, []);
 
-  /* useEffect(() => {
-    // Get logbook
-  }, []); */
-
-  /*   useEffect(() => {
-    if (dataLoading) return onChangeEvent("loading");
-    if (!dataLoading && dataErrors) return onChangeEvent("error");
-    if (!dataLoading) return onChangeEvent("done");
-  }, [dataLoading]);
- */
+  useEffect(() => {
+    if (loading) return onChangeEvent("loading");
+    if (!loading && error) return onChangeEvent("error");
+    if (!loading) return onChangeEvent("done");
+  }, [loading]);
 
   return (
     <PageContainer
@@ -49,23 +48,35 @@ export const LogbookPage = () => {
       }}
     >
       <S.Container>
-        <Chip
-          icon={<CalendarMonthIcon />}
-          text="10/04/2024"
-          textProps={{ size: theme.fontSize14, color: theme.lightGrey }}
-          iconProps={{ size: "18", color: theme.lightGrey }}
-          backgroundColor={theme.lightBlue}
-        />
-        <LogbookSimpleCard
-          data={{
-            id: "123",
-            to: { icaoCode: "SBBH", airportName: "Aeroporto da Pampulha" },
-            from: { icaoCode: "SBSP", airportName: "Aeroporto de Congonhas" },
-            takeOffHour: "08:30",
-            landingHour: "11:20",
-          }}
-          onClick={console.log}
-        />
+        {data &&
+          data.map((logbookMain) => {
+            return (
+              <S.LogbookWrapper key={logbookMain.date}>
+                <Chip
+                  icon={<CalendarMonthIcon />}
+                  text={mask("date", logbookMain.date)}
+                  textProps={{ size: theme.fontSize14, color: theme.lightGrey }}
+                  iconProps={{ size: "18", color: theme.lightGrey }}
+                  backgroundColor={theme.lightBlue}
+                />
+                <Carousel
+                  slidesAmount={logbookMain.logbook.length}
+                  hasNavigationDots={true}
+                  hasInfiniteScrolling={false}
+                >
+                  {logbookMain.logbook.map((logbook) => {
+                    return (
+                      <LogbookSimpleCard
+                        key={logbook.id}
+                        data={{ ...logbook }}
+                        onClick={console.log}
+                      />
+                    );
+                  })}
+                </Carousel>
+              </S.LogbookWrapper>
+            );
+          })}
       </S.Container>
     </PageContainer>
   );

@@ -9,6 +9,12 @@ export const Container = styled.div`
   padding-top: 3rem;
 `;
 
+export const LogbookWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+`;
 export const CarouselWrapper = styled.div`
   width: 100%;
   height: fit-content;

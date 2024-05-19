@@ -5,6 +5,7 @@ import logo from "../../assets/logo.png";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import FlightLandIcon from "@mui/icons-material/FlightLand";
 import SouthIcon from "@mui/icons-material/South";
+import { mask } from "../../utils/mask";
 
 export const LogbookSimpleCard = ({ className, data, onClick }: Props) => {
   return (
@@ -16,7 +17,7 @@ export const LogbookSimpleCard = ({ className, data, onClick }: Props) => {
             <FlightTakeoffIcon />
           </div>
           <span>
-            <p className="fs12">{data.landingHour}</p>
+            <p className="fs12">{mask("time", data.landingHour)}</p>
             <p>{data.from.icaoCode}</p>
             <p className="fs16 bold">{data.from.airportName}</p>
           </span>
@@ -29,7 +30,7 @@ export const LogbookSimpleCard = ({ className, data, onClick }: Props) => {
             <FlightLandIcon />
           </div>
           <span>
-            <p className="fs12">{data.takeOffHour}</p>
+            <p className="fs12">{mask("time", data.takeOffHour)}</p>
             <p>{data.to.icaoCode}</p>
             <p className="fs16 bold">{data.to.airportName}</p>
           </span>
