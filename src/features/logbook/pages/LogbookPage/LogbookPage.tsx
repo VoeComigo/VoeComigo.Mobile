@@ -1,6 +1,6 @@
 import * as S from "./LogbookPage.styles";
 import { PageContainer } from "../../../../components/PageContainer/PageContainer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/PageEventsContext";
 import { useNavigate, useParams } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
@@ -11,6 +11,8 @@ import { Chip } from "../../../../components/Chip/Chip";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { voeComigoTheme as theme } from "../../../../theme/globalTheme";
 import { useGetLogbook } from "../../hooks";
+import { useModalContext } from "../../../../contexts/ModalContext/ModalContext";
+import { LogbookDetailsModal } from "../../../../components/LogbookDetailsModal/LogbookDetailsModal";
 
 export const LogbookPage = () => {
   const { aircraftID, registration } = useParams<{
@@ -35,6 +37,17 @@ export const LogbookPage = () => {
     if (!loading && error) return onChangeEvent("error");
     if (!loading) return onChangeEvent("done");
   }, [loading]);
+
+  const { toggleModal, setModalContent } = useModalContext("bottom");
+
+  function onShowDetails(id: string) {
+    setModalContent(
+      <LogbookDetailsModal
+        id={{ logbookID: id, aircraftID: aircraftID || "" }}
+      />
+    );
+    toggleModal();
+  }
 
   return (
     <PageContainer
@@ -69,7 +82,7 @@ export const LogbookPage = () => {
                       <LogbookSimpleCard
                         key={logbook.id}
                         data={{ ...logbook }}
-                        onClick={console.log}
+                        onClick={onShowDetails}
                       />
                     );
                   })}

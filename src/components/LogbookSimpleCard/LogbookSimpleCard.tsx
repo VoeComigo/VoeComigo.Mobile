@@ -17,9 +17,9 @@ export const LogbookSimpleCard = ({ className, data, onClick }: Props) => {
             <FlightTakeoffIcon />
           </div>
           <span>
-            <p className="fs12">{mask("time", data.landingHour)}</p>
-            <p>{data.from.icaoCode}</p>
-            <p className="fs16 bold">{data.from.airportName}</p>
+            <p className="fs12 bold">{mask("time", data.landingHour)}</p>
+            <p className="bold">{data.from.icaoCode}</p>
+            <p className="fs16">{data.from.airportName}</p>
           </span>
         </span>
         <div className="grey-icon">
@@ -30,9 +30,9 @@ export const LogbookSimpleCard = ({ className, data, onClick }: Props) => {
             <FlightLandIcon />
           </div>
           <span>
-            <p className="fs12">{mask("time", data.takeOffHour)}</p>
-            <p>{data.to.icaoCode}</p>
-            <p className="fs16 bold">{data.to.airportName}</p>
+            <p className="fs12 bold">{mask("time", data.takeOffHour)}</p>
+            <p className="bold">{data.to.icaoCode}</p>
+            <p className="fs16">{data.to.airportName}</p>
           </span>
         </span>
       </S.Content>
@@ -55,5 +55,5 @@ export const LogbookSimpleCard = ({ className, data, onClick }: Props) => {
 type Props = {
   className?: string;
   data: ISimpleLogbookInfo;
-  onClick: (e: string) => void;
+  onClick: (logbookID: string) => void;
 };

@@ -8,7 +8,7 @@ export const Container = styled(Card)`
   height: fit-content;
 
   p {
-    width: 70%;
+    width: 100%;
     color: ${theme.purple2};
     font-size: ${theme.fontSize14};
   }
