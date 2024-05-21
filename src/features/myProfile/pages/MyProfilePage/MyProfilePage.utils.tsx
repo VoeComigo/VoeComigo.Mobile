@@ -42,7 +42,7 @@ export function getModalTitleByType(type: UPDATE_TYPES): string {
 
 export function getInputPropsByUpdateType(type: UPDATE_TYPES) {
   return {
-    placeholderChar: PLACEHOLDER_DICTIONARY[type] as string,
+    placeholderchar: PLACEHOLDER_DICTIONARY[type] as string,
     mask: inputMask(MASK_DICTIONARY[type]),
   };
 }

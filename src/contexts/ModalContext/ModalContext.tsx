@@ -1,22 +1,33 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { Modal, useModalController } from "../../hooks";
+import { useLocation } from "react-router-dom";
 
 type IModalStyles = "normal" | "ticket" | "bottom";
 type IModalContextTypes = {
-  onChangeStyle: (e: IModalStyles) => void;
+  setModalStyle: (e: IModalStyles) => void;
   setModalContent: (e: JSX.Element) => void;
   toggleModal: () => void;
 };
 
 const ModalContext = createContext<IModalContextTypes>({
-  onChangeStyle: function () {},
+  setModalStyle: function () {},
   setModalContent: function () {},
   toggleModal: function () {},
 });
 
 // Hook that export the modal context:
-export const useModalContext = () => {
-  return useContext(ModalContext);
+export const useModalContext = (modalStyle: "normal" | "ticket" | "bottom") => {
+  const context = useContext(ModalContext);
+  useEffect(() => {
+    context.setModalStyle(modalStyle);
+  }, []);
+  return context;
 };
 
 // Actual context:
@@ -32,15 +43,17 @@ export const ModalContextProvider = ({
   const [modalType, setModalType] = useState<IModalStyles>("normal");
   const [modalContent, setModalContent] = useState<JSX.Element>(<></>);
 
-  useEffect(() => {
+  //  Tracking page change:
+  let location = useLocation();
+  useLayoutEffect(() => {
     closeModal();
-  }, [modalType, modalContent]);
+  }, [location]);
 
   return (
     <ModalContext.Provider
       value={{
         toggleModal: toggleModal,
-        onChangeStyle: setModalType,
+        setModalStyle: setModalType,
         setModalContent: setModalContent,
       }}
     >
@@ -51,3 +64,11 @@ export const ModalContextProvider = ({
     </ModalContext.Provider>
   );
 };
+
+//  USAGE EXAMPLE:
+// Modal context:
+/*  const {toggleModal, setModalStyle, setModalContent} = useModalContext()
+ useEffect(() => {
+  setModalStyle('normal');
+  setModalContent(<></>)
+ }, []) */

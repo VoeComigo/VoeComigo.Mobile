@@ -16,8 +16,9 @@ import {
   parseCallbackData,
   useDynamicDialogFetching,
 } from "./DialogGenerator.utils";
-import { Modal, RemoveModal, useModalController } from "../../hooks";
+import { RemoveModal } from "../../hooks";
 import { MaskProps, MaskedTextField } from "../MaskedTextField/MaskedTextField";
+import { useModalContext } from "../../contexts/ModalContext/ModalContext";
 
 export const DialogGenerator = ({
   template,
@@ -37,14 +38,27 @@ export const DialogGenerator = ({
   const [activeValueStep, setActiveValueStep] = useState<number>(0); // Inner steps of the dialog:
   const [text, setText] = useState<string>(""); //  TextField handler:
 
-  //  Go back modal controller:
-  const { toggleModal, controller } = useModalController();
-
   //  Navigate back to the callback url:
   function navigateBack() {
     navigate(dialog.callbackUrl);
-    return navigate(0);
   }
+
+  // Modal context:
+  const { toggleModal, setModalContent } = useModalContext("normal");
+  useEffect(() => {
+    setModalContent(
+      <RemoveModal
+        labels={{
+          title:
+            "Quer mesmo voltar ao menu anterior? Todo o progresso será perdido.",
+          primaryLabel: "Sim, vou cadastrar mais tarde",
+          secondaryLabel: "Não, mudei de idéia",
+        }}
+        onPrimaryClick={navigateBack}
+        onSecondaryClick={toggleModal}
+      />
+    );
+  }, []);
 
   //  Handle update:
   function updateHandler() {
@@ -261,18 +275,6 @@ export const DialogGenerator = ({
 
   return (
     <S.Container>
-      <Modal {...controller} contentStyle="normal">
-        <RemoveModal
-          labels={{
-            title:
-              "Quer mesmo voltar ao menu anterior? Todo o progresso será perdido.",
-            primaryLabel: "Sim, vou cadastrar mais tarde",
-            secondaryLabel: "Não, mudei de idéia",
-          }}
-          onPrimaryClick={navigateBack}
-          onSecondaryClick={toggleModal}
-        />
-      </Modal>
       <S.BlueArea>
         <div className="navigation-buttons">
           <button onClick={goBack}>

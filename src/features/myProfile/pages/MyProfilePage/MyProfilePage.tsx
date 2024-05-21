@@ -8,8 +8,6 @@ import { useEffect, useState } from "react";
 import { stringAvatar } from "../../../../utils/stringAvatar";
 import { StatusButton } from "../../../../components/StatusButton/StatusButton";
 import { mask } from "../../../../utils/mask";
-import { BottomModal } from "../../../../hooks/useModalController/BottomModal/BottomModal";
-import { useModalController } from "../../../../hooks";
 import { useGetProfile } from "../../../dashboard/hooks/useGetProfile";
 import { useUpdateProfile } from "../../hooks/useUpdateProfile";
 import {
@@ -25,6 +23,7 @@ import { MaskedTextField } from "../../../../components/MaskedTextField/MaskedTe
 import { useNotificationContext } from "../../../../contexts";
 import { useNavigate } from "react-router-dom";
 import { useSignOut } from "../../../../hooks/useSignOut/useSignOut";
+import { useModalContext } from "../../../../contexts/ModalContext/ModalContext";
 
 type ISaveInput = {
   text: string;
@@ -64,8 +63,8 @@ export const MyProfilePage = () => {
   //  Sign-out handler:
   const { handleSignOut } = useSignOut();
 
-  //  Modal controller:
-  const { toggleModal, controller } = useModalController();
+  // Modal context:
+  const { toggleModal, setModalContent } = useModalContext("bottom");
 
   useEffect(() => {
     getProfile();
@@ -82,6 +81,56 @@ export const MyProfilePage = () => {
     setInputValue(setDefaultInputValues(data, type));
     toggleModal();
   }
+
+  //  Update modal content:
+  useEffect(() => {
+    setModalContent(
+      <S.ModalContent>
+        <div className="modal-title-area">
+          <p className="title">Atualização cadastral</p>
+          <p className="subtitle">{getModalTitleByType(updateType)}</p>
+        </div>
+        <div className="input-area">
+          <MaskedTextField
+            className="input"
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+            type="text"
+            size="small"
+            value={inputValue.text}
+            {...getInputPropsByUpdateType(updateType)}
+            onChange={(e) =>
+              setInputValue({ ...inputValue, text: e.target.value })
+            }
+          />
+          {(updateType === "EMAIL" || updateType === "PHONE") && (
+            <p className="checkbox-area">
+              <Checkbox
+                checked={inputValue.optin}
+                size="medium"
+                onChange={(e) =>
+                  setInputValue({ ...inputValue, optin: e.target.checked })
+                }
+              />
+              {getTextBoxLabelByUpdateType(updateType)}
+            </p>
+          )}
+        </div>
+        <div className="submit-area">
+          <Button
+            className="primary"
+            type="submit"
+            variant="contained"
+            disabled={loadingUpdate}
+            disableElevation
+            onClick={handleUpdate}
+          >
+            Salvar alterações
+          </Button>
+        </div>
+      </S.ModalContent>
+    );
+  }, [updateType, inputValue]);
 
   async function handleUpdate() {
     try {
@@ -193,52 +242,6 @@ export const MyProfilePage = () => {
         />
         <div className="bottom-spacer"></div>
       </S.OptionsArea>
-      <BottomModal {...controller}>
-        <S.ModalContent>
-          <div className="modal-title-area">
-            <p className="title">Atualização cadastral</p>
-            <p className="subtitle">{getModalTitleByType(updateType)}</p>
-          </div>
-          <div className="input-area">
-            <MaskedTextField
-              className="input"
-              variant="outlined"
-              InputLabelProps={{ shrink: true }}
-              type="text"
-              size="small"
-              value={inputValue.text}
-              {...getInputPropsByUpdateType(updateType)}
-              onChange={(e) =>
-                setInputValue({ ...inputValue, text: e.target.value })
-              }
-            />
-            {(updateType === "EMAIL" || updateType === "PHONE") && (
-              <p className="checkbox-area">
-                <Checkbox
-                  checked={inputValue.optin}
-                  size="medium"
-                  onChange={(e) =>
-                    setInputValue({ ...inputValue, optin: e.target.checked })
-                  }
-                />
-                {getTextBoxLabelByUpdateType(updateType)}
-              </p>
-            )}
-          </div>
-          <div className="submit-area">
-            <Button
-              className="primary"
-              type="submit"
-              variant="contained"
-              disabled={loadingUpdate}
-              disableElevation
-              onClick={handleUpdate}
-            >
-              Salvar alterações
-            </Button>
-          </div>
-        </S.ModalContent>
-      </BottomModal>
     </S.Container>
   );
 };

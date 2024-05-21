@@ -9,15 +9,15 @@ import { IMaskInput } from "react-imask";
 interface ICustomMaskedInputProps {
   mask: string;
   onChange: (event: { target: { value: string } }) => void;
-  placeholderChar?: string;
+  placeholderchar?: string;
 }
 
 const TextMaskCustom = forwardRef<
   HTMLInputElement,
   Omit<InputBaseComponentProps, "onChange"> & ICustomMaskedInputProps
 >(function TextMaskCustom(props, ref) {
-  const { onChange, mask, placeholderChar, ...other } = props;
-  const placeholder: string = placeholderChar ? placeholderChar : "_";
+  const { onChange, mask, placeholderchar, ...other } = props;
+  const placeholder: string = placeholderchar ? placeholderchar : "_";
 
   return (
     <IMaskInput
@@ -35,7 +35,7 @@ const TextMaskCustom = forwardRef<
 });
 
 export const MaskedTextField = (props: TextFieldProps & MaskProps) => {
-  const { mask, placeholderChar } = props;
+  const { mask, placeholderchar } = props;
   return (
     <TextField
       {...props}
@@ -44,7 +44,7 @@ export const MaskedTextField = (props: TextFieldProps & MaskProps) => {
       }}
       inputProps={{
         mask,
-        placeholderChar,
+        placeholderchar,
       }}
     />
   );
@@ -52,5 +52,5 @@ export const MaskedTextField = (props: TextFieldProps & MaskProps) => {
 
 export type MaskProps = {
   mask?: string | MaskProps[];
-  placeholderChar?: string;
+  placeholderchar?: string;
 };
