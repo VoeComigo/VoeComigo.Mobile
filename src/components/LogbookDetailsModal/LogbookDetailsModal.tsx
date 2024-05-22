@@ -6,10 +6,8 @@ import { mask } from "../../utils/mask";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ScaleIcon from "@mui/icons-material/Scale";
-import { GenericInformationContainer } from "../GenericInformationContainer/GenericInformationContainer";
-import { generateCardInfo, getStyleClass } from "./LogbookDetailsModal.utils";
+import { generateCardInfo } from "./LogbookDetailsModal.utils";
 import { Carousel } from "../Carousel/Carousel";
-import { SimpleCrewCard } from "../CrewCards/SimpleCrewCard/SimpleCrewCard";
 import { Card } from "../Card/Card";
 import { LogbookCrewCard } from "../LogbookCrewCard/LogbookCrewCard";
 import { getOnboardFunction } from "../../utils/parserUtils";
@@ -94,11 +92,11 @@ export const LogbookDetailsModal = ({ className, id }: Props) => {
           //hasNavigationDots={false}
           hasInfiniteScrolling={false}
         >
-          {mainInfoContent.map((item) => (
-            <S.MainContainer>
+          {mainInfoContent.map((item, i) => (
+            <S.MainContainer key={`container-${i}`}>
               {item.map((el) => {
                 return (
-                  <span className="flex col center">
+                  <span key={el.title} className="flex col center">
                     <p className="bold fs14 flex center icon16">
                       {el.icon}
                       {el.title}
