@@ -21,7 +21,17 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
   }
+  .col {
+    flex-direction: column;
+  }
 
+  .icon16 {
+    gap: 0.225rem;
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
   .fs12 {
     font-size: ${theme.fontSize12};
   }
@@ -39,6 +49,12 @@ export const Container = styled.div`
   .text-centered {
     width: 100%;
     text-align: center;
+  }
+
+  .table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   }
 
   .logo {
@@ -72,20 +88,34 @@ export const Container = styled.div`
     margin-top: 1rem;
     padding-top: 0.5rem;
   }
+
+  .main-info-carousel {
+    overflow: hidden;
+    padding: 0.5rem;
+    border: 1px solid ${theme.grey6};
+    border-radius: 1rem;
+  }
+
+  .chip-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .divided {
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid ${theme.grey4};
+  }
+
+  .spacer {
+    display: block;
+    height: 24px;
+  }
 `;
 
 export const InfoContainer = styled.div`
   display: inline-flex;
   width: 100%;
   justify-content: space-between;
-`;
-
-export const Card = styled.div`
-  width: 100%;
-  height: fit-content;
-  border: 1px solid ${theme.grey};
-  padding: 0.225rem;
-  border-radius: 0.5rem;
 `;
 
 export const LoaderContainer = styled.div`
@@ -95,6 +125,18 @@ export const LoaderContainer = styled.div`
   width: 100%;
   height: 150px;
 `;
+
+export const MainContainer = styled.div`
+  display: flex !important;
+  width: 100%;
+  height: fit-content;
+
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+`;
+
 export const Spinner = styled.span`
   display: block;
   width: 32px;

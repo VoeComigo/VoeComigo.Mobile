@@ -22,7 +22,7 @@ export interface ISimpleLogbookInfo {
 export interface ILogbookCrew {
   id: string;
   person: IPersonData;
-  role: string;
+  onBoardFunction: string;
   presentation: string;
   isSigned: boolean;
   signedAt: string | null;
@@ -43,7 +43,13 @@ export interface ILogbookDetailsResponse extends ISimpleLogbookInfo {
   engineStartUp: string;
   engineCut: string;
   landingQuantity: number;
+  cycleQuantity: number;
   fuelQuantity: number;
+  dayTime: string;
+  nightly: string;
+  ifr: string;
+  ifrCapota: string;
+  flightNature: string;
   pob: number;
   load: number;
   crew: ILogbookCrew[];

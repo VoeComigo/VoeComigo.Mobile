@@ -1,6 +1,6 @@
 import * as S from "./LogbookPage.styles";
 import { PageContainer } from "../../../../components/PageContainer/PageContainer";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/PageEventsContext";
 import { useNavigate, useParams } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";

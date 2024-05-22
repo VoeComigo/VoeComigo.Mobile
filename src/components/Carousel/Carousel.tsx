@@ -4,6 +4,7 @@ import "./slick.css";
 import Slider, { Settings } from "react-slick";
 
 export const Carousel = ({
+  className,
   children,
   slidesAmount,
   hasNavigationDots = true,
@@ -23,10 +24,15 @@ export const Carousel = ({
     beforeChange: (_, i) => onChange && onChange(i),
   };
 
-  return <Slider {...carouselSettings}>{children}</Slider>;
+  return (
+    <Slider className={className} {...carouselSettings}>
+      {children}
+    </Slider>
+  );
 };
 
 type Props = {
+  className?: string;
   slidesAmount: number;
   children?: ReactNode;
   hasNavigationDots?: boolean;
