@@ -7,6 +7,8 @@ export const Container = styled.div`
   height: 100%;
   justify-content: center;
   gap: 1rem;
+  //padding-top: 3rem;
+  margin-top: 4rem;
 
   .modal-content {
     margin-top: 2rem;

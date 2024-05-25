@@ -6,10 +6,11 @@ export const Container = styled.div`
   flex-direction: column;
 
   width: 100%;
-  height: 100%;
+  height: fit-content;
+
   padding: 1.5rem 1.5rem 7.5rem 1.5rem;
 
-  overflow: hidden;
+  overflow-x: hidden;
   overflow-y: auto;
 
   h1 {

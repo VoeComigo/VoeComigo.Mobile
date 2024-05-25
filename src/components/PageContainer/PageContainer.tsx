@@ -1,5 +1,6 @@
 import * as S from "./PageContainer.styles";
 import { MainButtonProps, MainMenu, RouteMapper } from "../MainMenu/MainMenu";
+import { ReactNode } from "react";
 
 export const PageContainer = ({
   header,
@@ -10,7 +11,7 @@ export const PageContainer = ({
 }: Props) => {
   return (
     <>
-      <S.Container>
+      <S.Container className="app-container">
         {header.customHeader && !header.title ? (
           <div className="header-section">{header.customHeader}</div>
         ) : (
@@ -21,6 +22,7 @@ export const PageContainer = ({
         )}
         {children}
       </S.Container>
+
       {hasMainMenu && (
         <MainMenu
           actualRoute={actualRoute}
@@ -36,7 +38,7 @@ export const PageContainer = ({
 
 type Props = {
   header: HeaderProps;
-  children: JSX.Element;
+  children: ReactNode;
   hasMainMenu?: boolean;
   actualRoute?: RouteMapper;
   mainButton?: MainButtonProps;

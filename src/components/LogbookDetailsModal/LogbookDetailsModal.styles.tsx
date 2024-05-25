@@ -100,6 +100,11 @@ export const Container = styled.div`
     margin-bottom: 0.5rem;
   }
 
+  .chip-discrepancy {
+    margin-top: 0.225rem;
+    align-self: end;
+  }
+
   .divided {
     padding-top: 0.5rem;
     margin-top: 0.5rem;

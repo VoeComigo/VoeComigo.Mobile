@@ -13,6 +13,7 @@ import { voeComigoTheme as theme } from "../../../../theme/globalTheme";
 import { useGetLogbook } from "../../hooks";
 import { useModalContext } from "../../../../contexts/ModalContext/ModalContext";
 import { LogbookDetailsModal } from "../../../../components/LogbookDetailsModal/LogbookDetailsModal";
+import { LogbookFilter } from "../../../../components/LogbookFilter/LogbookFilter";
 
 export const LogbookPage = () => {
   const { aircraftID, registration } = useParams<{
@@ -60,6 +61,7 @@ export const LogbookPage = () => {
         onClick: () => console.log("CRIAR NOVO LOGBOOK"),
       }}
     >
+      <LogbookFilter />
       <S.Container>
         {data &&
           data.map((logbookMain) => {

@@ -165,16 +165,26 @@ export const LogbookDetailsModal = ({ className, id }: Props) => {
               <Card key={item.id}>
                 <p className="fs14">
                   <b>{"Discrepância: "}</b>
+                  <br />
                   {item.report}
                 </p>
                 {item.correctiveAction && (
-                  <p className="fs14 divided">
-                    <b>{`Ação corretiva em ${mask(
-                      "date-time",
-                      item.correctiveActionDate
-                    )}hs: `}</b>
-                    {item.correctiveAction}
-                  </p>
+                  <>
+                    <p className="fs14 divided">
+                      <b>{`Ação corretiva em ${mask(
+                        "date-time",
+                        item.correctiveActionDate
+                      )}hs: `}</b>
+                      <br />
+                      {item.correctiveAction}
+                    </p>
+                    <Chip
+                      className="chip-discrepancy"
+                      text={`Por: ${item.responsiblePerson?.name} | ${item.responsiblePerson?.anacCode}`}
+                      textProps={{ size: "12", color: "#fdfdfd" }}
+                      backgroundColor="#0083FF"
+                    />
+                  </>
                 )}
               </Card>
             ))}

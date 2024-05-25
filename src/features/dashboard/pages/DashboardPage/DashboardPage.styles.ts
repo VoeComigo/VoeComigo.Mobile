@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding-top: 5.5rem;
+  margin-top: 5.5rem;
 `;
 
 export const DashboardHeader = styled.div`

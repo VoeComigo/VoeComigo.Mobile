@@ -32,6 +32,7 @@ export interface ILogbookDiscrepancy {
   report: string;
   correctiveAction: string | null;
   correctiveActionDate: string | null;
+  responsiblePerson: IPersonData | null;
 }
 export interface IAircraftSimpleResponse {
   id: string;

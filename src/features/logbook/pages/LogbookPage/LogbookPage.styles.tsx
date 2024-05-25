@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding-top: 3rem;
+  margin-top: 6rem;
 `;
 
 export const LogbookWrapper = styled.div`
@@ -15,6 +15,7 @@ export const LogbookWrapper = styled.div`
   gap: 0.5rem;
   margin-bottom: 1rem;
 `;
+
 export const CarouselWrapper = styled.div`
   width: 100%;
   height: fit-content;
