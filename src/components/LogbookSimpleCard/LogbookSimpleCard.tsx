@@ -18,8 +18,8 @@ export const LogbookSimpleCard = ({ className, data, onClick }: Props) => {
           </div>
           <span>
             <p className="fs12 bold">{mask("time", data.takeOffHour)}</p>
-            <p className="bold">{data.from.icaoCode}</p>
-            <p className="fs16">{data.from.airportName}</p>
+            <p className="bold">{`${data.from.icaoCode} | ${data.from.airportName}`}</p>
+            <p className="fs16">{`${data.from.city} - ${data.from.state}`}</p>
           </span>
         </span>
         <div className="grey-icon">
@@ -31,8 +31,8 @@ export const LogbookSimpleCard = ({ className, data, onClick }: Props) => {
           </div>
           <span>
             <p className="fs12 bold">{mask("time", data.landingHour)}</p>
-            <p className="bold">{data.to.icaoCode}</p>
-            <p className="fs16">{data.to.airportName}</p>
+            <p className="bold">{`${data.to.icaoCode} | ${data.to.airportName}`}</p>
+            <p className="fs16">{`${data.to.city} - ${data.to.state}`}</p>
           </span>
         </span>
       </S.Content>
@@ -41,7 +41,6 @@ export const LogbookSimpleCard = ({ className, data, onClick }: Props) => {
           className="primary"
           type="submit"
           variant="contained"
-          //disabled={loading}
           disableElevation
           onClick={() => onClick(data.id)}
         >

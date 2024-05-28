@@ -29,6 +29,8 @@ export interface IFlightPlan {
 export interface IFlightData {
   airportName?: string;
   icaoCode?: string;
+  city?: string;
+  state?: string;
 }
 
 export interface IAircraftModel {

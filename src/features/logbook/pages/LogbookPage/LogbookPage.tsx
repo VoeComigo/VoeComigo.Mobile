@@ -1,6 +1,6 @@
 import * as S from "./LogbookPage.styles";
 import { PageContainer } from "../../../../components/PageContainer/PageContainer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/PageEventsContext";
 import { useNavigate, useParams } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
@@ -14,6 +14,7 @@ import { useGetLogbook } from "../../hooks";
 import { useModalContext } from "../../../../contexts/ModalContext/ModalContext";
 import { LogbookDetailsModal } from "../../../../components/LogbookDetailsModal/LogbookDetailsModal";
 import { LogbookFilter } from "../../../../components/LogbookFilter/LogbookFilter";
+import { getFilterQueryParam } from "./LogbookPage.utils";
 
 export const LogbookPage = () => {
   const { aircraftID, registration } = useParams<{
@@ -27,8 +28,14 @@ export const LogbookPage = () => {
   //  Loading and error handling:
   const { onChangeEvent } = usePageEventsHandling();
 
+  //  Filtering result:
+  const [filter, setFilter] = useState<string>();
+
   //  Data fetching:
-  const { getLogbook, data, loading, error } = useGetLogbook(aircraftID || "");
+  const { getLogbook, data, loading, error } = useGetLogbook(
+    aircraftID || "",
+    filter
+  );
   useEffect(() => {
     getLogbook();
   }, []);
@@ -39,9 +46,15 @@ export const LogbookPage = () => {
     if (!loading) return onChangeEvent("done");
   }, [loading]);
 
-  const { toggleModal, setModalContent } = useModalContext("bottom");
+  //  Refetch when filter change:
+  useEffect(() => {
+    if (filter) getLogbook();
+  }, [filter]);
+
+  const { toggleModal, setModalContent, setModalStyle } = useModalContext();
 
   function onShowDetails(id: string) {
+    setModalStyle("bottom");
     setModalContent(
       <LogbookDetailsModal
         id={{ logbookID: id, aircraftID: aircraftID || "" }}
@@ -61,7 +74,9 @@ export const LogbookPage = () => {
         onClick: () => console.log("CRIAR NOVO LOGBOOK"),
       }}
     >
-      <LogbookFilter />
+      <LogbookFilter
+        onChangeFilter={(e) => setFilter(getFilterQueryParam(e))}
+      />
       <S.Container>
         {data &&
           data.map((logbookMain) => {
