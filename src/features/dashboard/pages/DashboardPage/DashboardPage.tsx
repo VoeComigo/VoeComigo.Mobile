@@ -15,6 +15,7 @@ import { Carousel } from "../../../../components/Carousel/Carousel";
 import { TermsOfUseModal } from "../../../../components/TermsOfUseModal/TermsOfUseModal";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import { useModalContext } from "../../../../contexts/ModalContext/ModalContext";
+import moscow from "../../../../assets/Moscovs.png";
 
 export const DashboardPage = () => {
   //  Navigation handling:
@@ -153,6 +154,11 @@ export const DashboardPage = () => {
             </Carousel>
           </S.CarouselWrapper>
         )}
+        <img
+          src={moscow}
+          alt=""
+          style={{ width: 38, position: "absolute", bottom: 145 }}
+        />
       </S.Container>
     </PageContainer>
   );

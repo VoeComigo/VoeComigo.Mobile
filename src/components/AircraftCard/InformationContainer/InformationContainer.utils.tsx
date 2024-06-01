@@ -90,7 +90,7 @@ export const useGenerateInformationSlides = (data: AircraftInfoProps) => {
       <span>
         {data.roles.map((role) => {
           return (
-            <span>
+            <span key={role}>
               {getRoles(role)}
               <br />
             </span>
