@@ -1,4 +1,4 @@
-import { IAircraft } from "../../../components/AircraftCard/types";
+import { IAircraftCrew } from "../../../components/AircraftCard/types";
 import { useFetch } from "../../../hooks/useFetch/useFetch";
 
 export const useGetAircraft = () => {
@@ -7,7 +7,7 @@ export const useGetAircraft = () => {
     data,
     loading,
     error,
-  } = useFetch<IAircraft[], undefined>({
+  } = useFetch<IAircraftCrew[], undefined>({
     url: "/api/Person/Aircraft",
     method: "GET",
   });

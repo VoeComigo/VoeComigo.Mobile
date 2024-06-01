@@ -13,7 +13,7 @@ export const EnchancedCard = styled(Card)`
   padding: 1rem;
 
   align-items: center;
-  justify-content: center;
+  //justify-content: center;
 
   user-select: none;
 
@@ -23,7 +23,7 @@ export const EnchancedCard = styled(Card)`
   }
 
   h1 {
-    font-size: ${theme.fontSize22};
+    font-size: ${theme.fontSize16};
     font-weight: ${theme.fontWeight600};
     color: ${theme.purple2};
   }

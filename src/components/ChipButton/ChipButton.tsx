@@ -4,6 +4,7 @@ export const ChipButton = ({
   className,
   text,
   icon,
+  disabled,
   backgroundColor,
   borderProps,
   textProps,
@@ -20,6 +21,7 @@ export const ChipButton = ({
       $textSize={textProps?.size}
       $iconColor={iconProps?.color}
       $iconSize={iconProps?.size}
+      disabled={disabled}
       onClick={onClick && onClick}
     >
       {text}
@@ -32,6 +34,7 @@ type Props = {
   className?: string;
   text: string;
   icon?: JSX.Element;
+  disabled?: boolean;
   backgroundColor?: string;
   borderProps?: {
     tickness?: string;

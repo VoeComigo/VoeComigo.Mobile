@@ -1,9 +1,10 @@
 import { mask } from "../../../utils/mask";
+import { getRoles } from "../../../utils/parserUtils";
 import { AircraftInfoProps } from "./InformationContainer";
 
 type InfoMapper = {
   title: string;
-  value: string;
+  value: string | JSX.Element;
   subValue?: string;
 };
 
@@ -77,11 +78,34 @@ export const useGenerateInformationSlides = (data: AircraftInfoProps) => {
     },
   ];
 
-  const slidesArray: InfoMapper[][] = [
-    firstSlide,
-    secondSlide,
-    thirdSlide,
-    fourthSlide,
-  ];
+  const slidesArray: InfoMapper[][] = [];
+  slidesArray.push(firstSlide);
+  slidesArray.push(secondSlide);
+  slidesArray.push(thirdSlide);
+  slidesArray.push(fourthSlide);
+
+  // Check for role slide:
+  if (data.roles && data.roles.length > 0) {
+    const Role = (
+      <span>
+        {data.roles.map((role) => {
+          return (
+            <span>
+              {getRoles(role)}
+              <br />
+            </span>
+          );
+        })}
+      </span>
+    );
+
+    const fifthSlide: InfoMapper[] = [
+      {
+        title: "Funções:",
+        value: Role,
+      },
+    ];
+    slidesArray.push(fifthSlide);
+  }
   return { slidesArray };
 };

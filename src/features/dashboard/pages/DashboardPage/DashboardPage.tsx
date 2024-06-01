@@ -68,10 +68,13 @@ export const DashboardPage = () => {
   useEffect(() => {
     setModalContent(
       <TermsOfUseModal
-        aircraftID={(aircraftData && aircraftData[selectedIdx].id) || ""}
+        aircraftID={
+          (aircraftData && aircraftData[selectedIdx].aircraft.id) || ""
+        }
         username={(data && data.name) || ""}
         registration={
-          (aircraftData && aircraftData[selectedIdx].registration) || ""
+          (aircraftData && aircraftData[selectedIdx].aircraft.registration) ||
+          ""
         }
         termPhase={modalPhase}
         onPhaseChange={setModalPhase}
@@ -93,7 +96,9 @@ export const DashboardPage = () => {
   function onChangeAircraft(index: number) {
     setSelectedIdx(index);
     if (aircraftData) {
-      const term = termsList.find((item) => item.id === aircraftData[index].id);
+      const term = termsList.find(
+        (item) => item.id === aircraftData[index].aircraft.id
+      );
       term && setModalPhase(term.accepted ? "two" : "one");
       return;
     }
@@ -102,9 +107,12 @@ export const DashboardPage = () => {
   //  Main button click handler:
   function onClickMainButton() {
     if (aircraftData) {
-      const aircraft = aircraftData[selectedIdx];
-      if (!aircraftData[selectedIdx].hasOpeningTerm) return toggleModal();
-      return navigate(`/logbook/${aircraft.id}/${aircraft.registration}`);
+      const aircraftCrew = aircraftData[selectedIdx];
+      if (!aircraftData[selectedIdx].aircraft.hasOpeningTerm)
+        return toggleModal();
+      return navigate(
+        `/logbook/${aircraftCrew.aircraft.id}/${aircraftCrew.aircraft.registration}`
+      );
     }
     return;
   }
@@ -137,8 +145,8 @@ export const DashboardPage = () => {
             >
               {aircraftData.map((el) => (
                 <AircraftDashboardCard
-                  key={el.id}
-                  aircraft={el}
+                  key={el.aircraft.id}
+                  aircraft={el.aircraft}
                   onTermInteraction={onChangePhase}
                 />
               ))}

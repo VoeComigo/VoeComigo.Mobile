@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { voeComigoTheme as theme } from "../../../../theme/globalTheme";
+import bg from "../../../../assets/cloud-bg.png";
 
 export const Container = styled.div`
   display: flex;
@@ -18,7 +19,8 @@ export const AvatarArea = styled.div`
   width: 100%;
   height: 320px;
   background-color: ${theme.primary};
-  background-image: linear-gradient(337deg, #00000059, transparent);
+  background-image: linear-gradient(337deg, #006dff, #006dff5c), url(${bg});
+  background-size: cover;
   border-radius: 0rem 0rem 5rem 5rem;
   padding: 1.5rem;
   filter: drop-shadow(0px 4px 3px #00000033);

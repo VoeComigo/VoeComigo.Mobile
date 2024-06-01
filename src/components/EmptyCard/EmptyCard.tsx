@@ -3,13 +3,14 @@ import noAircraft from "../../assets/no-aircraft.png";
 import { Button } from "@mui/material";
 
 export const EmptyCard = ({
+  className,
   title,
   customIcon,
   buttonLabel,
   onClick,
 }: Props) => {
   return (
-    <S.EnchancedCard className="no-data">
+    <S.EnchancedCard className={`no-data ${className}`}>
       <>
         <S.NoContentContainer>
           <div className="avatar-area">
@@ -39,6 +40,7 @@ export const EmptyCard = ({
 };
 
 type Props = {
+  className?: string;
   title: string;
   customIcon?: string;
   buttonLabel?: string;

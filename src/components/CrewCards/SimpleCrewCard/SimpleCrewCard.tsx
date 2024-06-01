@@ -2,6 +2,7 @@ import * as S from "./SimpleCrewCard.styles";
 import { Avatar } from "@mui/material";
 import { stringAvatar } from "../../../utils/stringAvatar";
 import { IAircraftPerson } from "../../../features/aircraft/hooks/useGetCrew";
+import { getRoles } from "../../../utils/parserUtils";
 
 export const SimpleCrewCard = ({ className, crewMember }: Props) => {
   if (!crewMember) return <></>;
@@ -15,7 +16,7 @@ export const SimpleCrewCard = ({ className, crewMember }: Props) => {
       />
       <div className="name-and-email">
         <h1>{crewMember.person.name}</h1>
-        <p>{crewMember.role}</p>
+        <p>{getRoles(crewMember.role)}</p>
       </div>
     </S.EnchancedCard>
   );

@@ -18,4 +18,8 @@ export const Container = styled.div`
     flex-direction: column;
     margin-bottom: 3.5rem;
   }
+
+  .empty-card {
+    height: 600px;
+  }
 `;

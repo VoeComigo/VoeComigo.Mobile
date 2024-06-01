@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { voeComigoTheme as theme } from "../../theme/globalTheme";
 
 type Props = {
   $backgroundColor?: string;
@@ -36,7 +37,16 @@ export const CardArea = styled.button<Props>`
     fill: ${(props) => (props.$iconColor ? props.$iconColor : "#fff")};
   }
 
-  :active {
+  :not(:disabled):active {
     filter: brightness(0.9);
+  }
+
+  &:disabled {
+    background-color: ${theme.grey4};
+    color: ${theme.grey5};
+    border-color: ${theme.grey5};
+    svg {
+      fill: ${theme.grey5};
+    }
   }
 `;

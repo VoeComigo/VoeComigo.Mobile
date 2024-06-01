@@ -7,6 +7,7 @@ type Props = {
   $iconSize?: string;
   $iconColor?: string;
 };
+
 export const CardArea = styled.div<Props>`
   display: flex;
   width: fit-content;

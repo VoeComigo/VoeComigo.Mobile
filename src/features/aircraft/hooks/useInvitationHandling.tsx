@@ -7,7 +7,7 @@ export const useAcceptInvitation = () => {
     loading,
     error,
   } = useFetch<undefined, undefined>({
-    url: `/api/Person/Aircraft/:aircraftID/Invite/Accept`,
+    url: `/api/Person/Aircraft/:aircraftID/Invite/:inviteID/Accept`,
     method: "PATCH",
   });
 
@@ -21,7 +21,7 @@ export const useDeclineInvitation = () => {
     loading,
     error,
   } = useFetch<undefined, undefined>({
-    url: `/api/Person/Aircraft/:aircraftID/Invite/Decline`,
+    url: `/api/Person/Aircraft/:aircraftID/Invite/:inviteID/Decline`,
     method: "PATCH",
   });
 

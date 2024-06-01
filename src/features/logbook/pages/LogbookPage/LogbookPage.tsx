@@ -15,6 +15,7 @@ import { useModalContext } from "../../../../contexts/ModalContext/ModalContext"
 import { LogbookDetailsModal } from "../../../../components/LogbookDetailsModal/LogbookDetailsModal";
 import { LogbookFilter } from "../../../../components/LogbookFilter/LogbookFilter";
 import { getFilterQueryParam } from "./LogbookPage.utils";
+import { EmptyCard } from "../../../../components/EmptyCard/EmptyCard";
 
 export const LogbookPage = () => {
   const { aircraftID, registration } = useParams<{
@@ -75,10 +76,11 @@ export const LogbookPage = () => {
       }}
     >
       <LogbookFilter
+        disable={!data}
         onChangeFilter={(e) => setFilter(getFilterQueryParam(e))}
       />
       <S.Container>
-        {data &&
+        {data ? (
           data.map((logbookMain) => {
             return (
               <S.LogbookWrapper key={logbookMain.date}>
@@ -106,7 +108,15 @@ export const LogbookPage = () => {
                 </Carousel>
               </S.LogbookWrapper>
             );
-          })}
+          })
+        ) : (
+          <EmptyCard
+            className="empty-card"
+            title={
+              "Nenhuma registro cadastrado no diário de bordo desta aeronave. Utilize o '+' abaixo para verificar as opções disponíveis"
+            }
+          />
+        )}
       </S.Container>
     </PageContainer>
   );

@@ -46,4 +46,5 @@ export type AircraftInfoProps = {
   passengerAmount: number;
   seatsAmount: number;
   maxCrewMembers: number;
+  roles?: string[];
 };

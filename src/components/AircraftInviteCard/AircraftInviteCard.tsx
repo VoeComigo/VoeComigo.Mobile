@@ -12,7 +12,9 @@ import { ACCEPT_MESSAGES, DECLINE_MESSAGES } from "./AircraftInviteCard.utils";
 
 export const AircraftInviteCard = ({
   className,
+  roles,
   aircraftData,
+  inviteID,
   refetchData,
 }: Props) => {
   const { acceptInvitation, loading: acceptLoading } = useAcceptInvitation();
@@ -22,7 +24,7 @@ export const AircraftInviteCard = ({
 
   function handleInvitation(type: "ACCEPT" | "DECLINE") {
     if (type === "ACCEPT") {
-      acceptInvitation([{ aircraftID: aircraftData.id }])
+      acceptInvitation([{ aircraftID: aircraftData.id }, { inviteID }])
         .then(() => {
           createNotification(ACCEPT_MESSAGES.SUCCESS);
           return refetchData && refetchData(); // Data refetch
@@ -33,7 +35,7 @@ export const AircraftInviteCard = ({
         });
     }
     if (type === "DECLINE") {
-      declineInvitation([{ aircraftID: aircraftData.id }])
+      declineInvitation([{ aircraftID: aircraftData.id }, { inviteID }])
         .then(() => {
           createNotification(DECLINE_MESSAGES.SUCCESS);
           return refetchData && refetchData(); // Data refetch
@@ -48,7 +50,12 @@ export const AircraftInviteCard = ({
   return (
     <Card className={className}>
       <S.Content>
-        <ImageContainer {...aircraftData} isAircraftCard={false} />
+        <ImageContainer
+          {...aircraftData}
+          isFavorite={false}
+          roles={roles}
+          isAircraftCard={false}
+        />
         <InformationContainer {...aircraftData} />
         <div className="invite-buttons">
           <Button
@@ -79,6 +86,8 @@ export const AircraftInviteCard = ({
 
 type Props = {
   className?: string;
+  roles: string[];
   aircraftData: IAircraft;
+  inviteID: string;
   refetchData?: () => void;
 };

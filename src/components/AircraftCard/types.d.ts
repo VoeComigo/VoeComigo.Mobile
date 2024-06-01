@@ -1,10 +1,14 @@
+export interface IAircraftCrew {
+  aircraft: IAircraft;
+  id?: string;
+  isFavorite: boolean;
+  roles: string[];
+}
 export interface IAircraft {
   id: string;
   registration: string; // PX-0000
   model: IAircraftModel; // C175
   status: "ACTIVE" | "INACTIVE";
-  isFavorite: boolean;
-  role: string;
   image: string | null;
   owner: IPerson;
   operator: IPerson;

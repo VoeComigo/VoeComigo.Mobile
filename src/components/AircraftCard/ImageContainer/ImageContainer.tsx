@@ -9,6 +9,7 @@ import { mask } from "../../../utils/mask";
 import { useSetFavoriteAircraft } from "../../../features/aircraft/hooks/useSetFavoriteAircraft";
 import { useNotificationContext } from "../../../contexts";
 import { NOTIFICATION_TYPES } from "./ImageContainer.utils";
+import { getRoles } from "../../../utils/parserUtils";
 
 export const ImageContainer = ({
   id,
@@ -17,7 +18,7 @@ export const ImageContainer = ({
   status,
   isFavorite,
   image,
-  role,
+  roles,
   isAircraftCard = true,
   refetchData,
 }: Props) => {
@@ -61,7 +62,7 @@ export const ImageContainer = ({
           <span className="info-chip blue">{`${mask(
             "registration",
             registration
-          )} | ${model.description} | ${role}`}</span>
+          )} | ${model.description} | ${getRoles(roles[0])}`}</span>
         </S.CardArea>
       )}
       {isAircraftCard && (
@@ -104,6 +105,6 @@ type Props = {
   isFavorite: boolean;
   image: string | null;
   isAircraftCard?: boolean;
-  role: string;
+  roles: string[];
   refetchData?: () => void;
 };

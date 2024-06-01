@@ -27,3 +27,14 @@ export const getFlightNature = (name: string) => {
   if (name === "TR") return "TR - Traslado da aeronave";
   return "";
 };
+
+export const getRoles = (role: string) => {
+  if (role === "MANAGER") return "Gestor";
+  if (role === "OWNER") return "Proprietário";
+  if (role === "OPERATOR") return "Operador";
+  if (role === "CAPTAIN") return "Comandante";
+  if (role === "COPILOT") return "Copiloto";
+  if (role === "MECHANIC") return "Mecânico";
+  if (role === "STUDENT") return "Piloto aluno";
+  return "";
+};

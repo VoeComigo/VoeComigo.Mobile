@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useModalContext } from "../../contexts/ModalContext/ModalContext";
 import { FilterForm } from "./LogbookFilterForm";
 
-export const LogbookFilter = ({ onChangeFilter }: Props) => {
+export const LogbookFilter = ({ onChangeFilter, disable }: Props) => {
   const [filterParams, setFilterParams] = useState<IFilter[]>(DEFAULT_VALUES);
 
   //  Filter object update routine:
@@ -43,6 +43,7 @@ export const LogbookFilter = ({ onChangeFilter }: Props) => {
       <ChipButton
         className="filter-button"
         text={`Data incial`}
+        disabled={disable}
         onClick={() => onClickFilter(0)}
         {...(filterParams[0].isActive
           ? styleHandler.active
@@ -51,6 +52,7 @@ export const LogbookFilter = ({ onChangeFilter }: Props) => {
       <ChipButton
         className="filter-button"
         text={`Data final`}
+        disabled={disable}
         onClick={() => onClickFilter(1)}
         {...(filterParams[1].isActive
           ? styleHandler.active
@@ -59,6 +61,7 @@ export const LogbookFilter = ({ onChangeFilter }: Props) => {
       <ChipButton
         className="filter-button"
         text={`De`}
+        disabled={disable}
         onClick={() => onClickFilter(2)}
         {...(filterParams[2].isActive
           ? styleHandler.active
@@ -67,6 +70,7 @@ export const LogbookFilter = ({ onChangeFilter }: Props) => {
       <ChipButton
         className="filter-button"
         text={`Para`}
+        disabled={disable}
         onClick={() => onClickFilter(3)}
         {...(filterParams[3].isActive
           ? styleHandler.active
@@ -77,5 +81,6 @@ export const LogbookFilter = ({ onChangeFilter }: Props) => {
 };
 
 type Props = {
+  disable?: boolean;
   onChangeFilter: (filters: IFilter[]) => void;
 };

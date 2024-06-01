@@ -7,7 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 export const AircraftCards = ({
   className,
+  isFavorite,
   aircraftData,
+  roles,
   refetchData,
 }: Props) => {
   const navigate = useNavigate();
@@ -15,8 +17,13 @@ export const AircraftCards = ({
   return (
     <Card className={className}>
       <S.Content>
-        <ImageContainer {...aircraftData} refetchData={refetchData} />
-        <InformationContainer {...aircraftData} />
+        <ImageContainer
+          {...aircraftData}
+          roles={roles}
+          isFavorite={isFavorite}
+          refetchData={refetchData}
+        />
+        <InformationContainer {...aircraftData} roles={roles} />
         <Button
           className="primary"
           type="submit"
@@ -33,6 +40,8 @@ export const AircraftCards = ({
 
 type Props = {
   className?: string;
+  isFavorite: boolean;
+  roles: string[];
   aircraftData: IAircraft;
   refetchData?: () => void;
 };

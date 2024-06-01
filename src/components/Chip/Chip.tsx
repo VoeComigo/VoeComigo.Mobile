@@ -4,6 +4,7 @@ export const Chip = ({
   className,
   text,
   icon,
+  disabled,
   backgroundColor,
   textProps,
   iconProps,
@@ -27,6 +28,7 @@ type Props = {
   className?: string;
   text: string;
   icon?: JSX.Element;
+  disabled?: boolean;
   backgroundColor?: string;
   textProps?: {
     size?: string;

@@ -13,6 +13,7 @@ import { NOTIFICATION_TYPES } from "./DetailedCrewCard.utils";
 import { useEffect, useState } from "react";
 import { RemoveModal } from "../../../hooks";
 import { useModalContext } from "../../../contexts/ModalContext/ModalContext";
+import { getRoles } from "../../../utils/parserUtils";
 
 export const DetailedCrewCard = ({
   aircraftID,
@@ -33,8 +34,7 @@ export const DetailedCrewCard = ({
   const { createNotification } = useNotificationContext();
 
   // Modal context:
-  const { toggleModal, setModalStyle, setModalContent } =
-    useModalContext("normal");
+  const { toggleModal, setModalContent } = useModalContext("normal");
 
   //  Update modal content:
   useEffect(() => {
@@ -97,7 +97,7 @@ export const DetailedCrewCard = ({
             <div className="details-area">
               <div className="role-area">
                 <p>Função</p>
-                <p className="bold">{crewMember.role}</p>
+                <p className="bold">{getRoles(crewMember.role)}</p>
               </div>
               <div className="anac-area">
                 <p>Cod. ANAC</p>

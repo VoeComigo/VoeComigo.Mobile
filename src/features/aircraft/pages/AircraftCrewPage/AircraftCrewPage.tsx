@@ -11,6 +11,7 @@ import { usePageEventsHandling } from "../../../../contexts/PageEventsContext/Pa
 import AddIcon from "@mui/icons-material/Add";
 import { InvitationModal } from "../../../../components/InvitationModal/InvitationModal";
 import { useModalContext } from "../../../../contexts/ModalContext/ModalContext";
+import { useNotificationContext } from "../../../../contexts";
 
 export const AircraftCrewPage = () => {
   let { id } = useParams<string>();
@@ -37,7 +38,16 @@ export const AircraftCrewPage = () => {
   // Modal context:
   const { toggleModal, setModalContent } = useModalContext("normal");
 
+  //  Notification:
+  const { createNotification } = useNotificationContext();
+
   function onInviteClick() {
+    if (!data?.isOwner)
+      return createNotification({
+        type: "error",
+        title:
+          "Você não possui nível de acesso suficiente para realizar convites.",
+      });
     setModalContent(<InvitationModal />);
     toggleModal();
   }
@@ -70,6 +80,7 @@ export const AircraftCrewPage = () => {
           </>
         ) : (
           <EmptyCard
+            className="empty-card"
             title={
               "Nenhum tripulante localizado. Utilize o '+' abaixo para verificar as opções disponíveis"
             }
