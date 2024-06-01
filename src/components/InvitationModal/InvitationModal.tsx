@@ -9,13 +9,10 @@ import { inputMask } from "../../utils/inputMask";
 import { Button, MenuItem, Select } from "@mui/material";
 import { ROLES } from "./InvitationModal.utils";
 import { useInviteMember } from "../../features/aircraft/hooks/useInviteMember";
-import { useParams } from "react-router-dom";
+import { useModalContext } from "../../contexts/ModalContext/ModalContext";
 
 //const emailTest = new RegExp("/^[a-zA-z0-9-._+]+@w{2,}+(.w{2,})+/", "g");
-export const InvitationModal = () => {
-  //  Getting aircraft ID:
-  const { id } = useParams<string>();
-
+export const InvitationModal = ({ aircraftID }: Props) => {
   //  Notifications
   const { createNotification } = useNotificationContext();
 
@@ -60,9 +57,12 @@ export const InvitationModal = () => {
     return false;
   }, [input, role, searchType]);
 
+  // Modal context:
+  const { toggleModal } = useModalContext();
+
   async function handleSubmit() {
     try {
-      await inviteMember([{ aircraftID: id || "" }], {
+      await inviteMember([{ aircraftID }], {
         searchTerm: input,
         role: role,
       });
@@ -73,11 +73,12 @@ export const InvitationModal = () => {
         title: "Convite enviado",
         text: `Convite enviado com sucesso para o usuário ${input}.`,
       });
+      toggleModal(); // Close modal
     } catch {
       createNotification({
         type: "error",
         title: "Erro ao convidar",
-        text: `Ocorreu um erro ao convidar o usuário ${input}. Revise os campos e tente novamente mais tarde.`,
+        text: `Ocorreu um erro ao convidar o usuário ${input}. Revise os campos ou tente novamente mais tarde.`,
       });
     }
   }
@@ -145,7 +146,7 @@ export const InvitationModal = () => {
         </Select>
       </div>
 
-      <div className="button-area">
+      <div className="submit-area">
         <Button
           className="primary"
           disabled={disableSubmit || loading}
@@ -159,4 +160,8 @@ export const InvitationModal = () => {
       </div>
     </S.Wrapper>
   );
+};
+
+type Props = {
+  aircraftID: string;
 };

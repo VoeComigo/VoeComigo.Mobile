@@ -1,6 +1,6 @@
 export const ROLES = [
   {
-    key: "cmte",
+    key: "captain",
     value: "Comandante",
   },
   {

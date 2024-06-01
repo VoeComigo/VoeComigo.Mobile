@@ -29,37 +29,44 @@ export const Wrapper = styled.div`
       align-items: center;
       justify-content: center;
 
-      border: 1px solid ${theme.primary};
+      border: 1px solid ${theme.grey4};
       border-radius: 0.5rem;
 
-      color: ${theme.primary};
+      color: ${theme.grey4};
       background-color: ${theme.lightGrey};
-
-      box-shadow: ${theme.shadow2};
 
       transition: 200ms all;
 
-      filter: brightness(0.9);
+      svg {
+        fill: ${theme.grey4};
+      }
 
       &:active {
-        filter: brightness(0.95);
-      }
-      svg {
-        fill: ${theme.primary};
+        filter: brightness(0.98);
       }
     }
   }
 
   .selected {
-    transform: scale(1.1);
-    filter: brightness(1) !important;
+    transform: scale(1.05);
+    border: 1px solid ${theme.primary} !important;
+    color: ${theme.primary} !important;
+    box-shadow: ${theme.shadow2};
+    svg {
+      fill: ${theme.primary} !important;
+    }
   }
 
   .input-area {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
     margin-top: 1.5rem;
+    padding: 1rem;
+
+    border: 1px solid ${theme.grey4};
+    border-radius: 0.5rem;
 
     .text-input {
       width: 100%;
@@ -78,9 +85,10 @@ export const Wrapper = styled.div`
     }
   }
 
-  .button-area {
+  .submit-area {
     width: 100%;
     display: flex;
+    margin-top: 1rem;
     margin-bottom: 1rem;
 
     .primary {

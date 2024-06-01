@@ -1,5 +1,3 @@
-import { yellow } from "@mui/material/colors";
-
 export const voeComigoTheme = {
   //  Main color:
   primary: "#006DFF",

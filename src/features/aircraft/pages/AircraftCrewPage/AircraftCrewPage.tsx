@@ -48,7 +48,7 @@ export const AircraftCrewPage = () => {
         title:
           "Você não possui nível de acesso suficiente para realizar convites.",
       });
-    setModalContent(<InvitationModal />);
+    setModalContent(<InvitationModal aircraftID={id || ""} />);
     toggleModal();
   }
 
