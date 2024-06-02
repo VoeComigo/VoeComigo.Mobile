@@ -8,6 +8,7 @@ type MaskType =
   | "registration"
   | "anacCode"
   | "date"
+  | "hour"
   | "big-text";
 
 export const inputMask = (type: MaskType): string | MaskArray[] => {
@@ -22,6 +23,7 @@ export const inputMask = (type: MaskType): string | MaskArray[] => {
     return [{ mask: "+00 (00) 0000-0000" }, { mask: "+00 (00) 00000-0000" }];
   if (type === "anacCode") return "000000";
   if (type === "date") return "00/00/0000";
+  if (type === "hour") return "00:00";
   if (type === "big-text") return "****************************************";
   return "";
 };

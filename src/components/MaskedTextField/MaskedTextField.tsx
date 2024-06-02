@@ -34,10 +34,14 @@ const TextMaskCustom = forwardRef<
   );
 });
 
-export const MaskedTextField = (props: TextFieldProps & MaskProps) => {
+export const MaskedTextField = forwardRef<
+  HTMLInputElement,
+  TextFieldProps & MaskProps
+>((props, ref) => {
   const { mask, placeholderchar } = props;
   return (
     <TextField
+      inputRef={ref}
       {...props}
       InputProps={{
         inputComponent: TextMaskCustom as any,
@@ -48,7 +52,7 @@ export const MaskedTextField = (props: TextFieldProps & MaskProps) => {
       }}
     />
   );
-};
+});
 
 export type MaskProps = {
   mask?: string | MaskProps[];

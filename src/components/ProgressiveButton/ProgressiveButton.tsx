@@ -10,7 +10,6 @@ export const ProgressiveButton = ({
 }: Props) => {
   function getBarPercentage() {
     const { min, max } = barProps;
-    console.log((min * 100) / max + "%");
     return (min * 100) / max + "%";
   }
   return (
