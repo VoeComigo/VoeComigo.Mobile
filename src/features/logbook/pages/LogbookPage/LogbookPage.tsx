@@ -72,7 +72,8 @@ export const LogbookPage = () => {
       }}
       mainButton={{
         icon: <AddIcon />,
-        onClick: () => console.log("CRIAR NOVO LOGBOOK"),
+        onClick: () =>
+          navigate(`/logbook/${aircraftID}/${registration}/create`),
       }}
     >
       <LogbookFilter
